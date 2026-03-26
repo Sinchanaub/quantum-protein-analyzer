@@ -28,7 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;min-h
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.15;}
 
 /* HEADER */
-header{position:relative;z-index:10;
+header{position:relative;z-index:500;
   background:linear-gradient(135deg,#0f766e,#0d9488);
   box-shadow:0 2px 16px rgba(13,148,136,.2);
   border-bottom:3px solid var(--accent2);padding:1.2rem 2rem;}
@@ -36,7 +36,7 @@ header{position:relative;z-index:10;
 .logo{display:flex;align-items:center;gap:1.2rem;}
 .dna-icon{font-size:3rem;animation:rotate 4s linear infinite;display:inline-block;}
 @keyframes rotate{to{transform:rotate(360deg);}}
-.logo h1{font-family:'Orbitron',monospace;font-size:1.35rem;font-weight:900;
+.logo h1{font-family:'Orbitron',monospace;font-size:1.25rem;font-weight:900;
   background:linear-gradient(90deg,#ffffff,#ccfbf1);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   line-height:1.3;}
@@ -55,45 +55,9 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent2);}
 .tab-btn:hover{color:var(--text);}
 
-/* TOOLTIP */
-.tooltip-wrap{position:relative;display:inline-flex;align-items:center;}
-.tooltip-icon{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--accent);color:white;
-  font-size:.65rem;font-weight:700;font-family:'Exo 2',sans-serif;
-  cursor:help;margin-left:.5rem;flex-shrink:0;
-  transition:background .2s;
-}
-.tooltip-icon:hover{background:var(--accent2);}
-.tooltip-box{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  width:260px;
-  background:var(--text);
-  color:#fff;
-  font-family:'Exo 2',sans-serif;
-  font-size:.75rem;
-  font-weight:400;
-  line-height:1.6;
-  padding:.7rem .9rem;
-  border-radius:8px;
-  box-shadow:0 4px 16px rgba(0,0,0,.2);
-  z-index:1000;
-  letter-spacing:0;
-  text-transform:none;
-  pointer-events:none;
-}
-.tooltip-box::before{
-  content:'';position:absolute;top:-5px;left:12px;
-  width:10px;height:10px;background:var(--text);
-  transform:rotate(45deg);border-radius:2px;
-}
-.tooltip-wrap:hover .tooltip-box{display:block;}
-
-
+/* PAGES */
+.page{display:none;position:relative;z-index:5;max-width:1400px;margin:0 auto;padding:1.5rem 2rem;}
+.page.active{display:block;}
 
 /* PANEL */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;
@@ -145,11 +109,10 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
 /* AA DISPLAY */
 .aa-chain{display:flex;flex-wrap:wrap;gap:3px;margin-top:.7rem;}
-.aa-node{width:28px;height:28px;border-radius:3px;display:flex;align-items:center;
+.aa-node{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;
   justify-content:center;font-weight:700;font-size:.75rem;cursor:default;
-  transition:transform .15s;color:#1c1917;border:1px solid rgba(0,0,0,.1);}
+  transition:transform .15s;color:#000;}
 .aa-node:hover{transform:scale(1.3);z-index:10;position:relative;}
-
 /* RESULTS GRID */
 .results-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
 @media(max-width:800px){.results-grid{grid-template-columns:1fr;}}
@@ -202,7 +165,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
   padding:1.2rem;margin-bottom:1.2rem;
   box-shadow:0 4px 20px rgba(30,27,75,.2);
 }
-.final-title{font-family:'Orbitron',monospace;font-size:1rem;color:#fde68a;margin-bottom:.8rem;}
+.final-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--accent);margin-bottom:.8rem;}
 .final-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem;}
 .final-item{text-align:center;}
 .fi-val{font-size:1.1rem;font-weight:700;color:#86efac;}
@@ -426,7 +389,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 /* Disease name — large, bold, clearly visible */
 .disease-name-display{
   font-family:'Orbitron',monospace;
-  font-size:1.1rem;
+  font-size:0.90rem;
   font-weight:700;
   color:var(--text);
   background:var(--bg3);
@@ -442,7 +405,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .disease-name-display.healthy{color:var(--green);border-color:rgba(5,150,105,.4);background:rgba(5,150,105,.06);}
 
 /* Plain english disease reason */
-.disease-reason{font-size:.82rem;color:var(--dim);margin-bottom:.3rem;padding-left:.5rem;
+.disease-reason{font-size:.85rem;color:var(--dim);margin-bottom:.3rem;padding-left:.5rem;
   border-left:3px solid var(--border);line-height:1.5;}
 .conclusion-text{font-size:.88rem;color:var(--text);margin-top:.8rem;line-height:1.7;
   background:var(--bg3);border-radius:8px;padding:.7rem 1rem;}
@@ -453,7 +416,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .interp-title{font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;color:var(--accent);
   letter-spacing:1.5px;margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem;}
 .interp-bullets{list-style:none;padding:0;margin:0;}
-.interp-bullets li{font-size:.83rem;color:var(--text);padding:.25rem 0;padding-left:1.2rem;
+.interp-bullets li{font-size:1rem;color:var(--text);padding:.25rem 0;padding-left:1.2rem;
   position:relative;line-height:1.6;}
 .interp-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700;}
 .interp-conclusion{font-size:.88rem;color:var(--accent2);font-weight:700;margin-top:.8rem;
@@ -468,14 +431,14 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .qi-classical{color:var(--accent);}
 .qi-quantum{color:var(--accent2);}
 .backend-pill{display:inline-block;background:rgba(109,40,217,.12);border:1px solid var(--accent2);
-  color:var(--accent2);border-radius:999px;font-size:.65rem;padding:.2rem .7rem;
+  color:var(--accent2);border-radius:999px;font-size:.75rem;padding:.2rem .7rem;
   font-family:'Orbitron',monospace;letter-spacing:1px;margin-top:.5rem;}
 
 /* COMPARISON */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;}
 .cmp-row{background:var(--bg3);border-radius:8px;padding:.7rem .9rem;
   display:flex;flex-direction:column;gap:.3rem;}
-.cmp-label{font-size:.82rem;font-weight:700;color:var(--text);letter-spacing:.5px;margin-bottom:.3rem;}
+.cmp-label{font-size:.90rem;font-weight:700;color:var(--text);letter-spacing:.5px;margin-bottom:.3rem;}
 .cmp-vals{display:flex;justify-content:space-between;align-items:center;gap:.5rem;flex-wrap:wrap;}
 .cmp-healthy{font-size:.82rem;color:var(--green);font-weight:600;}
 .cmp-analyzed{font-size:.82rem;font-weight:600;}
@@ -503,24 +466,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .mut-better{color:var(--green);}
 .mut-worse{color:var(--red);}
 .mut-same{color:var(--dim);}
-.mut-example-chip{
-  display:inline-block;
-  background:rgba(224,94,58,.1);
-  border:1px solid rgba(224,94,58,.4);
-  color:var(--accent2);
-  border-radius:6px;
-  padding:.3rem .7rem;
-  font-size:.72rem;
-  font-family:monospace;
-  cursor:pointer;
-  transition:all .2s;
-  font-weight:600;
-}
-.mut-example-chip:hover{
-  background:rgba(224,94,58,.2);
-  border-color:var(--accent2);
-  transform:translateY(-1px);
-}
+.mut-arrow-row{display:flex;align-items:center;justify-content:center;gap:.4rem;font-size:.8rem;margin:.3rem 0;}
 
 /* SAMPLES PANEL updates */
 .samples-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.7rem;}
@@ -567,7 +513,191 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
   color:rgba(255,255,255,.8);font-family:'Exo 2',sans-serif;font-size:.75rem;padding:.3rem .6rem;
   cursor:pointer;transition:all .2s;}
 .btn-signout:hover{border-color:#fca5a5;color:#fca5a5;}
-/* Unknown warning */
+/* ===== MODERN FLOATING TOOLTIP ===== */
+.badge-tip{
+  position: relative;
+  cursor: pointer;
+  z-index: 300;
+}
+.stat-card{ cursor: pointer; }
+
+/* ── Global cursor-tracking tooltip ── */
+#cursor-tooltip{
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity .22s ease, transform .22s ease;
+  transform: translateY(8px);
+  width: 310px;
+}
+#cursor-tooltip.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Outer shell — matches site bg */
+#cursor-tooltip .ct-box{
+  background: linear-gradient(145deg, #e8f8f5 0%, #f0fafa 60%, #d4f1ee 100%);
+  border: 1.5px solid #0d9488;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(13,148,136,.22), 0 2px 8px rgba(13,148,136,.12);
+  position: relative;
+}
+
+/* Coloured accent bar at top */
+#cursor-tooltip .ct-bar{
+  height: 4px;
+  background: linear-gradient(90deg, #0d9488, #e05e3a, #0d9488);
+  background-size: 200% 100%;
+  animation: ctBarSlide 2.4s linear infinite;
+}
+@keyframes ctBarSlide{ to{ background-position: -200% 0; } }
+
+/* Header row */
+#cursor-tooltip .ct-head{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .65rem 1rem .45rem;
+  border-bottom: 1px solid rgba(13,148,136,.18);
+}
+#cursor-tooltip .ct-icon{
+  font-size: 1.2rem;
+  line-height: 1;
+}
+#cursor-tooltip .ct-title{
+  font-family: 'Orbitron', monospace;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #0d9488;
+  text-transform: uppercase;
+}
+
+/* Body */
+#cursor-tooltip .ct-body{
+  padding: .7rem 1rem .75rem;
+}
+#cursor-tooltip .ct-desc{
+  font-family: 'Exo 2', sans-serif;
+  font-size: .78rem;
+  color: #134e4a;
+  line-height: 1.65;
+  margin-bottom: .6rem;
+}
+
+/* Mini visual bar inside tooltip */
+#cursor-tooltip .ct-vis-wrap{
+  margin-top: .45rem;
+}
+#cursor-tooltip .ct-vis-label{
+  display: flex;
+  justify-content: space-between;
+  font-size: .68rem;
+  color: #4d7c78;
+  margin-bottom: 3px;
+  font-family: 'Exo 2', sans-serif;
+}
+#cursor-tooltip .ct-vis-track{
+  background: #b2d8d8;
+  border-radius: 99px;
+  height: 7px;
+  overflow: hidden;
+}
+#cursor-tooltip .ct-vis-fill{
+  height: 100%;
+  border-radius: 99px;
+  transition: width .5s ease;
+}
+
+/* Sparkline canvas */
+#cursor-tooltip .ct-spark{
+  width: 100%;
+  height: 44px;
+  margin-top: .45rem;
+  border-radius: 6px;
+  background: rgba(13,148,136,.06);
+  border: 1px solid rgba(13,148,136,.15);
+}
+
+/* Pill tags */
+#cursor-tooltip .ct-pills{
+  display: flex;
+  gap: .35rem;
+  flex-wrap: wrap;
+  margin-top: .55rem;
+}
+#cursor-tooltip .ct-pill{
+  font-size: .62rem;
+  font-family: 'Orbitron', monospace;
+  padding: .18rem .55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(13,148,136,.4);
+  color: #0d9488;
+  background: rgba(13,148,136,.09);
+  letter-spacing: .5px;
+}
+#cursor-tooltip .ct-pill.warn{
+  border-color: rgba(224,94,58,.4);
+  color: #c04020;
+  background: rgba(224,94,58,.09);
+}
+#cursor-tooltip .ct-pill.ok{
+  border-color: rgba(5,150,105,.4);
+  color: #047857;
+  background: rgba(5,150,105,.09);
+}
+
+/* Value highlight */
+#cursor-tooltip .ct-val-row{
+  display: flex;
+  align-items: baseline;
+  gap: .35rem;
+  margin-bottom: .25rem;
+}
+#cursor-tooltip .ct-val{
+  font-family: 'Orbitron', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0d9488;
+}
+#cursor-tooltip .ct-unit{
+  font-size: .7rem;
+  color: #4d7c78;
+}
+
+/* Arrow */
+#cursor-tooltip .ct-arrow{
+  width: 0; height: 0;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-top: 9px solid #0d9488;
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 2px 3px rgba(13,148,136,.2));
+}
+/* STAT CARD TOOLTIP — same style but anchored below the card */
+.stat-tip{position:relative;cursor:help;}
+.stat-tip::after{
+  content:attr(data-tip);
+  position:absolute;top:calc(100% + 10px);left:50%;
+  transform:translateX(-50%) translateY(-4px);
+  background:#0f2027;color:#cffafe;
+  border:1px solid rgba(13,148,136,.5);border-radius:8px;
+  padding:.6rem .9rem;font-size:.72rem;font-family:'Exo 2',sans-serif;
+  letter-spacing:.5px;line-height:1.6;
+  width:230px;white-space:normal;
+  box-shadow:0 6px 24px rgba(0,0,0,.35);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s;
+  z-index:9999;
+}
+.stat-tip:hover::after{opacity:1;transform:translateX(-50%) translateY(0);}
+/* unknown-warn */
 .unknown-warn{background:rgba(217,119,6,.08);border:1px solid rgba(217,119,6,.3);
   border-radius:8px;padding:.7rem 1rem;margin-bottom:.8rem;display:none;}
 .unknown-warn.show{display:block;}
@@ -630,10 +760,10 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
       </div>
       <button class="btn-signout" onclick="signOut()">Sign out</button>
       <div class="hdr-badges">
-      <span class="badge">Flask</span>
-      <span class="badge">Firebase</span>
-      <span class="badge q">VQE</span>
-      <span class="badge q">Neural Net</span>
+      <span class="badge badge-tip" data-tip="Flask (Python) — Lightweight web framework powering the REST API backend. Handles /api/analyze, /api/results, /api/mutate endpoints and serves the frontend.">Flask</span>
+      <span class="badge badge-tip" data-tip="Firebase — Google cloud platform used for Authentication (login/signup) and Firestore NoSQL database to store and retrieve per-user protein analysis results.">Firebase</span>
+      <span class="badge q badge-tip" data-tip="VQE (Variational Quantum Eigensolver) — Quantum algorithm that finds the minimum energy (ground state) of the protein Hamiltonian using a parameterized quantum circuit optimized by COBYLA. Runs on Qiskit Aer statevector simulator.">VQE</span>
+      <span class="badge q badge-tip" data-tip="Neural Net / Chou-Fasman AI — Sliding-window secondary structure prediction using Chou-Fasman propensity tables. Predicts Alpha Helix, Beta Sheet, Beta Turn and Random Coil regions from the amino acid sequence.">Neural Net</span>
     </div>
     </div>
   </div>
@@ -654,13 +784,13 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
   <!-- Pipeline indicator -->
   <div class="pipeline">
-    <div class="pip-step" id="pip1">1. Input Sequence<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Enter your amino acid sequence using single-letter codes (A, C, D, E...). FASTA format also supported. System normalises ambiguous IUPAC codes automatically.</span></span></div>
+    <div class="pip-step" id="pip1">1. Input Sequence</div>
     <div class="pip-arrow">→</div>
-    <div class="pip-step" id="pip2">2. AI Prediction<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Chou-Fasman algorithm predicts secondary structure. Uses propensity tables from 1978 research paper — each amino acid has a known tendency to form helix, sheet or coil based on 15,000+ known protein structures.</span></span></div>
+    <div class="pip-step" id="pip2">2. AI Prediction</div>
     <div class="pip-arrow">→</div>
-    <div class="pip-step" id="pip3">3. Quantum VQE<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Variational Quantum Eigensolver runs on Qiskit Aer simulator. Builds a Pauli Hamiltonian from amino acid interactions, then uses RY+CNOT quantum circuit to find minimum energy conformation.</span></span></div>
+    <div class="pip-step" id="pip3">3. Quantum VQE</div>
     <div class="pip-arrow">→</div>
-    <div class="pip-step" id="pip4">4. Structure Output<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Final predicted structure combining AI + quantum results. Includes 3D visualisation, disease risk assessment, quantum energy landscape, and comparison with known healthy proteins.</span></span></div>
+    <div class="pip-step" id="pip4">4. Structure Output</div>
   </div>
 
   <div class="input-grid">
@@ -723,7 +853,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
       <div class="panel" id="mutation-panel" style="display:none;">
         <div class="panel-title">🧬 MUTATION ANALYSIS</div>
         <div style="font-size:.78rem;color:var(--dim);margin-bottom:.8rem;">
-          Apply a point mutation and see its exact impact on stability and disease risk.<br>
+          Apply a point mutation to the current sequence and see how it affects stability and disease risk.<br>
           Format: <strong>E22K</strong> (original AA + position + new AA)
         </div>
         <div class="mutation-input-row">
@@ -749,19 +879,14 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- Final Summary -->
     <div class="final-box">
-      <div class="final-title">🎯 PREDICTED PROTEIN STRUCTURE
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The overall 3D shape prediction combining AI Chou-Fasman analysis and quantum VQE energy optimization. Shows dominant structure, fold topology, stability and minimum energy.</span></span>
-      </div>
+      <div class="final-title">🎯 PREDICTED PROTEIN STRUCTURE</div>
       <div class="final-grid">
-        <div class="final-item"><div class="fi-val" id="res-structure">-</div><div class="fi-lbl">Secondary Structure<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The local 3D shape of the protein backbone — Alpha Helix (coil), Beta Sheet (flat strand), Beta Turn (reversal), or Random Coil (no regular pattern). Predicted using Chou-Fasman propensity tables.</span></span></div></div>
-        <div class="final-item"><div class="fi-val" id="res-fold">-</div><div class="fi-lbl">Fold Topology<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The overall 3D architecture of the protein — derived from the quantum ground state. Examples: Compact globular fold (dense sphere), Beta barrel (hollow cylinder), Immunoglobulin fold (antibody shape).</span></span></div></div>
-        <div class="final-item">
-          <div class="fi-val" id="res-stability" style="font-size:.95rem;">-</div>
-          <div class="fi-lbl">Stability<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Stable = folds correctly and stays functional. Pathologically Stable = locked in a harmful misfolded shape (like Alzheimer's amyloid — it's stable, just wrong). Unstable = degrades before functioning.</span></span></div>
-        </div>
-        <div class="final-item"><div class="fi-val" id="res-energy">-</div><div class="fi-lbl">Minimum Energy (eV)<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The quantum ground state energy found by VQE — the lowest possible energy the protein can reach. More negative = more stable fold. This is the energy a drug molecule needs to overcome to change the protein's shape.</span></span></div></div>
-        <div class="final-item"><div class="fi-val" id="res-conf">-</div><div class="fi-lbl">AI Confidence<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">How confident the Chou-Fasman AI model is in its structure prediction. Based on how strongly the sequence matches known structural patterns. >70% = reliable prediction. <40% = ambiguous sequence.</span></span></div></div>
-        <div class="final-item"><div class="fi-val" id="res-qubits">-</div><div class="fi-lbl">Qubits Used<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Number of quantum bits in the VQE circuit. Each qubit represents a segment of the protein chain. More qubits = more accurate quantum simulation. Currently capped at 4 for speed on a simulator.</span></span></div></div>
+        <div class="final-item"><div class="fi-val" id="res-structure">-</div><div class="fi-lbl">Secondary Structure</div></div>
+        <div class="final-item"><div class="fi-val" id="res-fold">-</div><div class="fi-lbl">Fold Topology</div></div>
+        <div class="final-item"><div class="fi-val" id="res-stability">-</div><div class="fi-lbl">Stability</div></div>
+        <div class="final-item"><div class="fi-val" id="res-energy">-</div><div class="fi-lbl">Min Energy (eV)</div></div>
+        <div class="final-item"><div class="fi-val" id="res-conf">-</div><div class="fi-lbl">AI Confidence</div></div>
+        <div class="final-item"><div class="fi-val" id="res-qubits">-</div><div class="fi-lbl">Qubits Used</div></div>
       </div>
     </div>
 
@@ -770,27 +895,19 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- ④ QUANTUM ENERGY IMPROVEMENT -->
     <div class="panel">
-      <div class="panel-title">⚛ QUANTUM ENERGY OPTIMIZATION
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">VQE (Variational Quantum Eigensolver) finds the minimum energy conformation of the protein. Lower energy = more stable fold. The improvement shows how much better quantum optimization is vs naive classical calculation.</span></span>
-      </div>
+      <div class="panel-title">⚛ QUANTUM ENERGY OPTIMIZATION</div>
       <div class="quantum-improvement">
         <div class="qi-card">
           <div class="qi-val qi-classical" id="qi-classical">—</div>
-          <div class="qi-lbl">Classical Energy (eV)
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The naive sum of all amino acid interaction energies calculated classically — hydrophobic attractions, electrostatic repulsions, and hydrogen bonds. This is the starting point before quantum optimization.</span></span>
-          </div>
+          <div class="qi-lbl">Classical Energy (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-quantum" id="qi-quantum">—</div>
-          <div class="qi-lbl">Quantum Optimized (eV)
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The true quantum ground state energy found by VQE — the lowest possible energy the protein can reach. This is the most stable conformation. More negative = more stable fold.</span></span>
-          </div>
+          <div class="qi-lbl">Quantum Optimized (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-improvement" id="qi-improvement">—</div>
-          <div class="qi-lbl">VQE Improvement
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">How much the quantum VQE optimization improved over the classical energy estimate. A higher percentage means quantum found a significantly more stable conformation than classical methods predicted.</span></span>
-          </div>
+          <div class="qi-lbl">VQE Improvement</div>
         </div>
       </div>
       <div style="text-align:center;margin-top:.4rem;">
@@ -802,25 +919,21 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
     <div class="results-grid">
       <!-- AI Confidence Scores -->
       <div class="panel">
-        <div class="panel-title">🤖 AI Structure Prediction
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Uses the Chou-Fasman algorithm (1978) — real biochemical propensity tables for each amino acid. Predicts how likely each residue is to form Alpha Helix, Beta Sheet, Beta Turn or Random Coil.</span></span>
-        </div>
+        <div class="panel-title">🤖 AI Structure Prediction</div>
         <div id="conf-bars"></div>
         <div style="margin-top:.8rem;">
-          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.4rem;">HELIX REGIONS<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Positions in the sequence where alpha-helix structure is predicted. Format: [start-end]. Alpha helices are right-handed coils stabilised by hydrogen bonds every 4 residues — common in membrane proteins.</span></span></div>
+          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.4rem;">HELIX REGIONS</div>
           <div id="helix-regions" style="font-size:.75rem;color:var(--text);font-family:monospace;"></div>
         </div>
         <div style="margin-top:.6rem;">
-          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.4rem;">SHEET REGIONS<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Positions where beta-sheet structure is predicted. Beta sheets are flat extended strands — the dominant structure in amyloid fibrils. High sheet content is a key marker for Alzheimer's and prion diseases.</span></span></div>
+          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.4rem;">SHEET REGIONS</div>
           <div id="sheet-regions" style="font-size:.75rem;color:var(--text);font-family:monospace;"></div>
         </div>
       </div>
 
       <!-- VQE Energy Convergence -->
       <div class="panel">
-        <div class="panel-title">⚛ VQE Energy Convergence
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Shows how the quantum VQE algorithm converges to the minimum energy over iterations. Each point is one quantum circuit evaluation. The curve dropping shows the optimizer finding a more stable protein conformation.</span></span>
-        </div>
+        <div class="panel-title">⚛ VQE Energy Convergence</div>
         <canvas id="vqe-canvas" height="180" style="width:100%;"></canvas>
       </div>
     </div>
@@ -828,9 +941,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
     <div class="results-grid">
       <!-- 3D Structure -->
       <div class="panel">
-        <div class="panel-title">🔭 3D Structure Visualization
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">3D representation of the protein based on predicted secondary structure. Colours show amino acid properties — red = hydrophobic (water-repelling), blue = hydrophilic (water-loving), green = positively charged, orange = negatively charged.</span></span>
-        </div>
+        <div class="panel-title">🔭 3D Structure Visualization</div>
         <canvas id="canvas3d"></canvas>
         <div class="viz-controls">
           <button class="viz-btn active" id="vbtn-ribbon" onclick="setVizMode('ribbon')">Ribbon</button>
@@ -842,12 +953,10 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
       <!-- Quantum States -->
       <div class="panel">
-        <div class="panel-title">⚛ Quantum State Probabilities
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Each bar shows the probability of the protein being in a specific quantum state (e.g. |0101⟩). The highest probability state corresponds to the most energetically favourable fold. This is the quantum superposition of all possible conformations.</span></span>
-        </div>
+        <div class="panel-title">⚛ Quantum State Probabilities</div>
         <div class="qstate-list" id="qstate-list"></div>
         <div style="margin-top:1rem;">
-          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.5rem;">ENERGY LANDSCAPE<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Shows the protein's energy at different conformational angles. The global minimum (green dot) is the most stable fold. Multiple valleys indicate the protein can exist in multiple conformations — common in prion diseases.</span></span></div>
+          <div style="font-size:.75rem;color:var(--dim);margin-bottom:.5rem;">ENERGY LANDSCAPE</div>
           <canvas id="energy-canvas" height="130" style="width:100%;"></canvas>
         </div>
       </div>
@@ -855,21 +964,17 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- AA Breakdown -->
     <div class="panel">
-      <div class="panel-title">🔬 Amino Acid Sequence Map
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Each block is one amino acid in your sequence. Colour shows its chemical property — hydrophobic (red) residues drive protein folding inward, hydrophilic (blue) face outward toward water. Charged residues (green/orange) create electrostatic interactions.</span></span>
-      </div>
+      <div class="panel-title">🔬 Amino Acid Sequence Map</div>
       <div class="aa-chain" id="result-aa-chain" style="margin-bottom:.8rem;"></div>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--dim);">
-        <span class="tooltip-wrap">🔴 Hydrophobic<span class="tooltip-box">Water-repelling amino acids — tend to cluster in the protein core away from water. High content drives aggregation in diseases like Alzheimer's and Parkinson's.</span></span><span class="tooltip-wrap">🔵 Hydrophilic<span class="tooltip-box">Water-loving amino acids — tend to face outward toward the aqueous cellular environment. Important for protein solubility and receptor binding.</span></span>
-        <span class="tooltip-wrap">➕ Positive charge<span class="tooltip-box">Amino acids with positive charge (R=Arginine, K=Lysine, H=Histidine). Charge balance is critical — large imbalance between positive and negative residues is a marker for autoimmune diseases.</span></span><span class="tooltip-wrap">➖ Negative charge<span class="tooltip-box">Amino acids with negative charge (D=Aspartate, E=Glutamate). Electrostatic interactions between charged residues help stabilise the protein's 3D structure.</span></span>
+        <span>🔴 Hydrophobic</span><span>🔵 Hydrophilic</span>
+        <span>➕ Positive charge</span><span>➖ Negative charge</span>
       </div>
     </div>
 
     <!-- ① DISEASE RISK / CONCLUSION BOX — at the end like a research conclusion -->
     <div class="panel conclusion-box" id="conclusion-box">
-      <div class="conclusion-title">🔬 DISEASE RISK ASSESSMENT
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Detects which of 16 incurable protein misfolding diseases this sequence is associated with, using biochemical markers from published research (Chiti & Dobson 2006, Prusiner 1997, Perutz 1994 etc.). Risk score is based on how many disease markers are present.</span></span>
-      </div>
+      <div class="conclusion-title">🔬 DISEASE RISK ASSESSMENT</div>
       <div class="risk-row">
         <span class="risk-label">Overall Risk:</span>
         <span class="risk-badge" id="risk-badge">—</span>
@@ -881,19 +986,15 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- ② INTERPRETATION BOX -->
     <div class="panel interp-box" style="border-left:4px solid var(--accent);">
-      <div class="interp-title">📋 INTERPRETATION
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Plain English explanation of what the structural analysis means — breaking down what each key metric (beta-sheet content, hydrophobicity, instability index, quantum energy) tells us about this protein's disease risk.</span></span>
-      </div>
+      <div class="interp-title">📋 INTERPRETATION</div>
       <ul class="interp-bullets" id="interp-bullets"></ul>
       <div class="interp-conclusion" id="interp-conclusion">—</div>
     </div>
 
     <!-- ③ COMPARISON — only shown for misfolded/diseased proteins -->
     <div class="panel" id="comparison-panel" style="display:none;">
-      <div class="panel-title" id="comparison-title">🔭 COMPARISON WITH HEALTHY PROTEIN
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Compares your protein's structural properties against a known healthy reference protein. Green means your protein matches or is better than healthy. Red means it differs in a way associated with disease risk.</span></span>
-      </div>
-      <div class="ref-name" id="ref-name">—</div>
+      <div class="panel-title" id="comparison-title">🔭 COMPARISON WITH HEALTHY PROTEIN</div>
+      <div class="ref-name" id="ref-name" style="display:none;">—</div>
       <div style="font-size:.8rem;color:var(--dim);margin-bottom:.8rem;">
         ✅ Green = same or better than healthy &nbsp;|&nbsp; ⚠️ Red = worse than healthy
       </div>
@@ -1010,16 +1111,17 @@ Applications:
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 
 <script>
-// ── FIREBASE CONFIG — replace with yours from Firebase Console → Project Settings → General ──
+// ── FIREBASE CONFIG ──
 const firebaseConfig = {
-  apiKey: "AIzaSyCGW6-QCj6y9zYlrTg3B29eAjd3xJu2buM",
-  authDomain: "quantum-4232d.firebaseapp.com",
-  projectId: "quantum-4232d",
-  storageBucket: "quantum-4232d.firebasestorage.app",
-  messagingSenderId: "93033094771",
-  appId: "1:93033094771:web:6af6515e5a93a17c1a5406",
-  measurementId: "G-D53WDEWMBC"
+  apiKey: "AIzaSyAlHzeQbCC7wrrm16NmLUSvCncF4zK26q4",
+  authDomain: "quantum-protein-folding.firebaseapp.com",
+  projectId: "quantum-protein-folding",
+  storageBucket: "quantum-protein-folding.firebasestorage.app",
+  messagingSenderId: "179839580739",
+  appId: "1:179839580739:web:50895228a7ff2a702132f6",
+  measurementId: "G-MDQDMQRV2K"
 };
+
 firebase.initializeApp(firebaseConfig);
 const fbAuth = firebase.auth();
 let currentUser = null;
@@ -1284,14 +1386,11 @@ function renderResults(data){
     riskLevel === 'High' ? '⚠ High Risk' : riskLevel === 'Moderate' ? '⚡ Moderate Risk' : '✓ Low Risk';
   document.getElementById('risk-badge').className = 'risk-badge risk-' + riskLevel.toLowerCase();
 
-  // Disease name — big and visible with category
+  // Disease name — big and visible
   const nameEl = document.getElementById('disease-name-display');
   if(dr.diseases && dr.diseases.length > 0) {
     nameEl.innerHTML = dr.diseases.map(d=>
-      `<div class="disease-name-display ${riskLevel.toLowerCase()}">
-        🧬 ${d.disease}
-        ${d.category ? `<span style="font-size:.65rem;font-family:'Exo 2',sans-serif;font-weight:400;opacity:.7;margin-left:.5rem;">[${d.category}]</span>` : ''}
-      </div>`
+      `<div class="disease-name-display ${riskLevel.toLowerCase()}">🧬 ${d.disease}</div>`
     ).join('');
   } else {
     nameEl.innerHTML = `<div class="disease-name-display healthy">✓ No disease association detected</div>`;
@@ -1322,25 +1421,104 @@ function renderResults(data){
   // ── Final summary ──
   document.getElementById('res-structure').textContent = fn.dominant_structure;
   document.getElementById('res-fold').textContent      = fn.fold_topology;
-
-  // Stability — colour coded
-  const stabEl = document.getElementById('res-stability');
-  stabEl.textContent = fn.stability;
-  stabEl.style.color = fn.stability === 'Stable' ? 'var(--green)'
-    : fn.stability === 'Pathologically Stable' ? 'var(--yellow)'
-    : 'var(--red)';
+  document.getElementById('res-stability').textContent = fn.stability;
   document.getElementById('res-energy').textContent    = fn.minimum_energy.toFixed(3);
   document.getElementById('res-conf').textContent      = fn.confidence.toFixed(1) + '%';
   document.getElementById('res-qubits').textContent    = qr.num_qubits;
 
-  // Stat cards
+  // Stat cards with rich tooltip data
+  const aaLen    = ai.length;
+  const molWt    = ai.molecular_weight;
+  const hydroPct = ai.hydrophobic_ratio;
+  const isoEl    = ai.isoelectric_point;
+  const instIdx  = ai.instability_index;
+  const vqeIter  = qr.total_iterations;
+
   document.getElementById('stat-cards').innerHTML = `
-    <div class="stat-card"><div class="sv">${ai.length}</div><div class="sl">Amino Acids<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Total number of amino acid residues in your protein sequence. Each letter (A, C, D...) represents one amino acid — the building blocks of proteins.</span></span></div></div>
-    <div class="stat-card"><div class="sv">${ai.molecular_weight.toLocaleString()}</div><div class="sl">Mol. Weight (Da)<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Molecular weight in Daltons — the total mass of all atoms in the protein. Larger proteins generally fold more slowly. Average amino acid weighs ~110 Da.</span></span></div></div>
-    <div class="stat-card"><div class="sv">${ai.hydrophobic_ratio}%</div><div class="sl">Hydrophobic %<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Percentage of water-repelling amino acids (A, C, F, I, L, M, V, W, Y). High hydrophobicity (>45%) drives protein folding inward and is a key marker for aggregation diseases like Alzheimer's.</span></span></div></div>
-    <div class="stat-card"><div class="sv">${ai.isoelectric_point}</div><div class="sl">Isoelectric Point (pI)<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The pH at which the protein carries zero net charge. Below pI the protein is positively charged, above it is negative. Affects solubility and interaction with other molecules.</span></span></div></div>
-    <div class="stat-card"><div class="sv">${ai.instability_index}</div><div class="sl">Instability Index<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Calculated using the DIWV dipeptide method (Guruprasad 1990) — same as ExPASy ProtParam. <40 = stable protein. >40 = unstable, prone to misfolding. >48 = high misfolding risk.</span></span></div></div>
-    <div class="stat-card"><div class="sv">${qr.total_iterations}</div><div class="sl">VQE Iterations<span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Number of quantum circuit evaluations performed by the Variational Quantum Eigensolver. Each iteration updates the circuit parameters to find a lower energy state. More iterations = better convergence.</span></span></div></div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="Amino Acids"
+      data-tip-icon="🔬"
+      data-tip-val="${aaLen}"
+      data-tip-unit="residues"
+      data-tip-desc="Total number of amino acid residues in the sequence. Proteins &lt;100 aa are peptides; 100–300 mid-size; 300+ large."
+      data-tip-bar="${Math.min(aaLen/600*100,100).toFixed(1)}"
+      data-tip-bar-lo="0" data-tip-bar-hi="600+"
+      data-tip-color="#0d9488"
+      data-tip-pills="${aaLen < 100 ? 'Peptide' : aaLen < 300 ? 'Mid-size' : 'Large protein'},Polypeptide chain"
+      data-tip-pill-state="${aaLen < 100 ? 'ok' : aaLen < 300 ? '' : 'warn'}"
+      data-tip-spark="aa">
+      <div class="sv">${aaLen}</div><div class="sl">Amino Acids</div>
+    </div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="Molecular Weight"
+      data-tip-icon="⚖️"
+      data-tip-val="${molWt.toLocaleString()}"
+      data-tip-unit="Da"
+      data-tip-desc="Molecular mass in Daltons. Average amino acid ≈ 110 Da. Used for gel electrophoresis sizing and crystallography."
+      data-tip-bar="${Math.min(molWt/100000*100,100).toFixed(1)}"
+      data-tip-bar-lo="0 Da" data-tip-bar-hi="100 kDa"
+      data-tip-color="#e05e3a"
+      data-tip-pills="${molWt < 10000 ? 'Micro' : molWt < 50000 ? 'Standard' : 'Heavy'},${(molWt/1000).toFixed(1)} kDa"
+      data-tip-pill-state="${molWt < 10000 ? 'ok' : molWt < 50000 ? '' : 'warn'}"
+      data-tip-spark="mw">
+      <div class="sv">${molWt.toLocaleString()}</div><div class="sl">Mol. Weight (Da)</div>
+    </div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="Hydrophobicity"
+      data-tip-icon="💧"
+      data-tip-val="${hydroPct}"
+      data-tip-unit="%"
+      data-tip-desc="Fraction of hydrophobic residues (A,C,F,I,L,M,V,W,Y). High % → membrane proteins or hydrophobic core formation."
+      data-tip-bar="${hydroPct}"
+      data-tip-bar-lo="0%" data-tip-bar-hi="100%"
+      data-tip-color="${hydroPct > 50 ? '#e05e3a' : '#0d9488'}"
+      data-tip-pills="${hydroPct > 60 ? 'Membrane-like' : hydroPct > 40 ? 'Mixed' : 'Hydrophilic'},${hydroPct > 50 ? 'High hydrophobicity' : 'Moderate'}"
+      data-tip-pill-state="${hydroPct > 60 ? 'warn' : 'ok'}"
+      data-tip-spark="hydro">
+      <div class="sv">${hydroPct}%</div><div class="sl">Hydrophobic</div>
+    </div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="Isoelectric Point"
+      data-tip-icon="⚡"
+      data-tip-val="${isoEl}"
+      data-tip-unit="pH"
+      data-tip-desc="pH at which the protein carries zero net charge. Below pI → positively charged. Above pI → negatively charged. Critical for purification."
+      data-tip-bar="${(isoEl/14*100).toFixed(1)}"
+      data-tip-bar-lo="pH 0" data-tip-bar-hi="pH 14"
+      data-tip-color="#7c3aed"
+      data-tip-pills="${isoEl < 6 ? 'Acidic' : isoEl > 8 ? 'Basic' : 'Neutral'},pI ${isoEl}"
+      data-tip-pill-state="${isoEl < 6 ? 'ok' : isoEl > 8 ? 'warn' : ''}"
+      data-tip-spark="pi">
+      <div class="sv">${isoEl}</div><div class="sl">Isoelectric Point</div>
+    </div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="Instability Index"
+      data-tip-icon="🌡️"
+      data-tip-val="${instIdx}"
+      data-tip-unit="II"
+      data-tip-desc="Predicts protein stability in vitro (Guruprasad, 1990). II &lt; 40 = stable; II ≥ 40 = unstable. Higher values = shorter half-life."
+      data-tip-bar="${Math.min(instIdx/100*100,100).toFixed(1)}"
+      data-tip-bar-lo="Stable 0" data-tip-bar-hi="100 Unstable"
+      data-tip-color="${instIdx >= 40 ? '#dc2626' : '#059669'}"
+      data-tip-pills="${instIdx < 40 ? 'Stable' : 'Unstable'},II = ${instIdx}"
+      data-tip-pill-state="${instIdx < 40 ? 'ok' : 'warn'}"
+      data-tip-spark="inst">
+      <div class="sv">${instIdx}</div><div class="sl">Instability Index</div>
+    </div>
+    <div class="stat-card stat-card-tip"
+      data-tip-title="VQE Iterations"
+      data-tip-icon="⚛"
+      data-tip-val="${vqeIter}"
+      data-tip-unit="steps"
+      data-tip-desc="Variational Quantum Eigensolver convergence steps. Each iteration refines quantum circuit parameters toward the ground-state energy minimum."
+      data-tip-bar="${Math.min(vqeIter/200*100,100).toFixed(1)}"
+      data-tip-bar-lo="0" data-tip-bar-hi="200 steps"
+      data-tip-color="#0d9488"
+      data-tip-pills="${vqeIter < 80 ? 'Fast converge' : vqeIter < 150 ? 'Normal' : 'Slow converge'},VQE"
+      data-tip-pill-state="${vqeIter < 80 ? 'ok' : vqeIter < 150 ? '' : 'warn'}"
+      data-tip-spark="vqe">
+      <div class="sv">${vqeIter}</div><div class="sl">VQE Iterations</div>
+    </div>
   `;
 
   // ── ④ QUANTUM ENERGY IMPROVEMENT ──
@@ -1348,13 +1526,16 @@ function renderResults(data){
   const quantE = qr.minimum_energy || 0;
   document.getElementById('qi-classical').textContent  = classE.toFixed(3) + ' eV';
   document.getElementById('qi-quantum').textContent    = quantE.toFixed(3) + ' eV';
-  document.getElementById('qi-improvement').textContent = imp > 0 ? '+' + imp + '%' : imp < 0 ? imp + '%' : '~0% (already optimal)';
+  const impEl = document.getElementById('qi-improvement');
+  if(imp > 0){ impEl.textContent = '+' + imp + '%'; impEl.style.color = 'var(--green)'; }
+  else if(imp < 0){ impEl.textContent = imp + '%'; impEl.style.color = 'var(--red)'; }
+  else { impEl.textContent = '0.0%'; impEl.style.color = 'var(--dim)'; }
   document.getElementById('backend-pill').textContent  = qr.quantum_backend || 'Qiskit Aer Simulator';
   // Circuit info
   const ci = qr.circuit_info;
   if(ci){
     document.getElementById('circuit-info').innerHTML =
-      `Circuit type: ${ci.ansatz_type} &nbsp;|&nbsp; Qubits: ${ci.num_qubits} &nbsp;|&nbsp; Depth: ${ci.depth} &nbsp;|&nbsp; Gates: ${ci.num_gates} &nbsp;|&nbsp; Parameters: ${ci.num_parameters} &nbsp;|&nbsp; Optimizer: ${ci.optimizer}`;
+      `Circuit: ${ci.ansatz_type} &nbsp;|&nbsp; Qubits: ${ci.num_qubits} &nbsp;|&nbsp; Depth: ${ci.depth} &nbsp;|&nbsp; Gates: ${ci.num_gates} &nbsp;|&nbsp; Parameters: ${ci.num_parameters} &nbsp;|&nbsp; Optimizer: ${ci.optimizer}`;
   }
 
   // ── ③ STRUCTURAL COMPARISON — only for non-healthy proteins ──
@@ -1519,21 +1700,24 @@ function drawEnergyLandscape(landscape){
   ctx.beginPath();
   landscape.forEach((p,i)=>{
     const x=pad+(W-2*pad)*i/(landscape.length-1);
-    const y=pad+(H-2*pad)*(1-(p.energy-minE)/(maxE-minE||1));
+    // Flipped: high energy = bottom, low energy = top (landscape dips down at minima)
+    const y=pad+(H-2*pad)*((p.energy-minE)/(maxE-minE||1));
     i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
   });
   ctx.strokeStyle='#7c3aed'; ctx.lineWidth=2; ctx.stroke();
   ctx.lineTo(W-pad,H-pad); ctx.lineTo(pad,H-pad); ctx.closePath();
   ctx.fillStyle='rgba(124,58,237,0.1)'; ctx.fill();
 
-  // Min marker
-  const minIdx = energies.indexOf(minE);
-  const mx=pad+(W-2*pad)*minIdx/(landscape.length-1);
-  const my=pad;
-  ctx.beginPath(); ctx.arc(mx,my,4,0,Math.PI*2);
+  // Min marker — now at BOTTOM since low energy maps to bottom
+  const minIdx2 = energies.indexOf(minE);
+  const mx2=pad+(W-2*pad)*minIdx2/(landscape.length-1);
+  const my2=H-pad;
+  ctx.beginPath(); ctx.arc(mx2,my2-4,4,0,Math.PI*2);
   ctx.fillStyle='#00ff9f'; ctx.fill();
   ctx.fillStyle='#00ff9f'; ctx.font='10px monospace'; ctx.textAlign='center';
-  ctx.fillText('E_min', mx, my-7);
+  ctx.fillText('E_min', mx2, my2-14);
+
+
 }
 
 // ─────────────────────────────────────────────
@@ -1894,6 +2078,210 @@ function switchTab(name){
     }, 200);
   }
 }
+
+// ─────────────────────────────────────────────
+// CURSOR-TRACKING TOOLTIP  (badge-tip + stat-card-tip)
+// ─────────────────────────────────────────────
+(function(){
+  /* ── build DOM ── */
+  const tip = document.createElement('div');
+  tip.id = 'cursor-tooltip';
+  tip.innerHTML = `
+    <div class="ct-box">
+      <div class="ct-bar"></div>
+      <div class="ct-head">
+        <span class="ct-icon">🔬</span>
+        <span class="ct-title">Info</span>
+      </div>
+      <div class="ct-body">
+        <div class="ct-val-row" style="display:none">
+          <span class="ct-val"></span>
+          <span class="ct-unit"></span>
+        </div>
+        <div class="ct-desc"></div>
+        <div class="ct-vis-wrap" style="display:none">
+          <div class="ct-vis-label">
+            <span class="ct-vis-lo"></span>
+            <span class="ct-vis-hi"></span>
+          </div>
+          <div class="ct-vis-track">
+            <div class="ct-vis-fill"></div>
+          </div>
+        </div>
+        <canvas class="ct-spark" style="display:none" width="270" height="44"></canvas>
+        <div class="ct-pills"></div>
+      </div>
+    </div>
+    <div class="ct-arrow"></div>
+  `;
+  document.body.appendChild(tip);
+
+  const TIP_W   = 310;
+  const OFFSET_Y = 16;
+  let currentTarget = null;
+
+  /* ── sparkline patterns per card type ── */
+  const SPARKS = {
+    aa:    () => Array.from({length:20},(_,i)=> 0.3 + 0.5*Math.sin(i*0.6)+0.2*Math.random()),
+    mw:    () => Array.from({length:20},(_,i)=> Math.pow(i/19,1.8)+0.05*Math.random()),
+    hydro: () => Array.from({length:20},(_,i)=> 0.5+0.4*Math.cos(i*0.7)+0.1*Math.random()),
+    pi:    () => Array.from({length:20},(_,i)=> 0.1+0.8*Math.abs(Math.sin(i*0.5))+0.05*Math.random()),
+    inst:  () => Array.from({length:20},(_,i)=> 0.9-0.7*(i/19)+0.08*Math.random()),
+    vqe:   () => Array.from({length:20},(_,i)=> Math.max(0.05, 0.95*Math.exp(-i*0.18)+0.06*Math.random())),
+  };
+
+  function drawSparkline(canvas, type, color){
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height;
+    ctx.clearRect(0,0,W,H);
+    const pts = (SPARKS[type] || SPARKS.aa)();
+    const minV = Math.min(...pts), maxV = Math.max(...pts);
+    const norm = v => H - ((v - minV)/(maxV - minV + 0.001))*(H-8) - 4;
+
+    /* fill */
+    const grad = ctx.createLinearGradient(0,0,0,H);
+    grad.addColorStop(0, color + '55');
+    grad.addColorStop(1, color + '08');
+    ctx.beginPath();
+    ctx.moveTo(0, norm(pts[0]));
+    pts.forEach((v,i)=> ctx.lineTo(i*(W/(pts.length-1)), norm(v)));
+    ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    /* line */
+    ctx.beginPath();
+    ctx.moveTo(0, norm(pts[0]));
+    pts.forEach((v,i)=> ctx.lineTo(i*(W/(pts.length-1)), norm(v)));
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    /* last dot */
+    const lx = W, ly = norm(pts[pts.length-1]);
+    ctx.beginPath(); ctx.arc(lx-2, ly, 3.5, 0, Math.PI*2);
+    ctx.fillStyle = color; ctx.fill();
+  }
+
+  /* ── position the tooltip above the cursor ── */
+  function positionTip(x, y){
+    const vw = window.innerWidth;
+    const tipH = tip.offsetHeight || 140;
+
+    let left = x - TIP_W / 2;
+    if(left < 8) left = 8;
+    if(left + TIP_W > vw - 8) left = vw - TIP_W - 8;
+
+    let top = y - tipH - OFFSET_Y;
+    if(top < 8) top = y + 24;
+
+    tip.style.left = left + 'px';
+    tip.style.top  = top  + 'px';
+
+    /* arrow tracks cursor X */
+    const arrowEl = tip.querySelector('.ct-arrow');
+    const relX    = Math.max(16, Math.min(TIP_W - 16, x - left));
+    arrowEl.style.left = relX + 'px';
+    arrowEl.style.transform = 'translateX(-50%)';
+    /* hide arrow when flipped below */
+    arrowEl.style.display = (top > y) ? 'none' : '';
+  }
+
+  /* ── populate tooltip for stat-card-tip ── */
+  function showStatCard(el){
+    const d = el.dataset;
+    const color = d.tipColor || '#0d9488';
+
+    tip.querySelector('.ct-icon').textContent  = d.tipIcon  || '📊';
+    tip.querySelector('.ct-title').textContent = d.tipTitle || 'Metric';
+    tip.querySelector('.ct-desc').textContent  = d.tipDesc  || '';
+
+    /* value row */
+    const vRow = tip.querySelector('.ct-val-row');
+    if(d.tipVal){
+      vRow.style.display = 'flex';
+      tip.querySelector('.ct-val').textContent  = d.tipVal;
+      tip.querySelector('.ct-unit').textContent = d.tipUnit || '';
+      tip.querySelector('.ct-val').style.color  = color;
+    } else { vRow.style.display = 'none'; }
+
+    /* bar */
+    const visWrap = tip.querySelector('.ct-vis-wrap');
+    if(d.tipBar !== undefined){
+      visWrap.style.display = 'block';
+      tip.querySelector('.ct-vis-lo').textContent   = d.tipBarLo || '0';
+      tip.querySelector('.ct-vis-hi').textContent   = d.tipBarHi || '100';
+      const fill = tip.querySelector('.ct-vis-fill');
+      fill.style.width      = Math.min(parseFloat(d.tipBar),100) + '%';
+      fill.style.background = `linear-gradient(90deg, ${color}88, ${color})`;
+    } else { visWrap.style.display = 'none'; }
+
+    /* sparkline */
+    const sparkType = d.tipSpark;
+    const sparkEl = tip.querySelector('.ct-spark');
+    if(sparkType){
+      sparkEl.style.display = 'block';
+      requestAnimationFrame(() => drawSparkline(sparkEl, sparkType, color));
+    } else { sparkEl.style.display = 'none'; }
+
+    /* pills */
+    const pillsEl = tip.querySelector('.ct-pills');
+    const pills   = (d.tipPills || '').split(',').filter(Boolean);
+    const states  = (d.tipPillState || '').split(',');
+    pillsEl.innerHTML = pills.map((p,i)=>
+      `<span class="ct-pill ${states[i]||''}">${p.trim()}</span>`
+    ).join('');
+
+    /* accent bar color */
+    tip.querySelector('.ct-bar').style.background =
+      `linear-gradient(90deg,${color},#e05e3a,${color})`;
+  }
+
+  /* ── populate tooltip for badge-tip ── */
+  function showBadge(el){
+    tip.querySelector('.ct-icon').textContent  = '🏷️';
+    tip.querySelector('.ct-title').textContent = 'Info';
+    tip.querySelector('.ct-desc').textContent  = el.dataset.tip || '';
+    tip.querySelector('.ct-val-row').style.display  = 'none';
+    tip.querySelector('.ct-vis-wrap').style.display = 'none';
+    tip.querySelector('.ct-spark').style.display    = 'none';
+    tip.querySelector('.ct-pills').innerHTML        = '';
+    tip.querySelector('.ct-bar').style.background   =
+      'linear-gradient(90deg,#0d9488,#e05e3a,#0d9488)';
+  }
+
+  /* ── events ── */
+  document.addEventListener('mousemove', function(e){
+    if(!currentTarget) return;
+    positionTip(e.clientX, e.clientY);
+  });
+
+  document.addEventListener('mouseover', function(e){
+    const statEl  = e.target.closest('.stat-card-tip');
+    const badgeEl = e.target.closest('.badge-tip');
+    if(statEl){
+      currentTarget = statEl;
+      showStatCard(statEl);
+      tip.classList.add('visible');
+    } else if(badgeEl && badgeEl.dataset.tip){
+      currentTarget = badgeEl;
+      showBadge(badgeEl);
+      tip.classList.add('visible');
+    }
+  });
+
+  document.addEventListener('mouseout', function(e){
+    const left = e.relatedTarget;
+    if(currentTarget && (!left || (!currentTarget.contains(left)))){
+      const stillOn = left && (left.closest('.stat-card-tip') || left.closest('.badge-tip'));
+      if(!stillOn){
+        currentTarget = null;
+        tip.classList.remove('visible');
+      }
+    }
+  });
+})();
 
 // ─────────────────────────────────────────────
 // HELPERS
