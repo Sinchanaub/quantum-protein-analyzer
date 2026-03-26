@@ -55,45 +55,9 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent2);}
 .tab-btn:hover{color:var(--text);}
 
-/* TOOLTIP */
-.tooltip-wrap{position:relative;display:inline-flex;align-items:center;}
-.tooltip-icon{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:16px;height:16px;border-radius:50%;
-  background:var(--accent);color:white;
-  font-size:.65rem;font-weight:700;font-family:'Exo 2',sans-serif;
-  cursor:help;margin-left:.5rem;flex-shrink:0;
-  transition:background .2s;
-}
-.tooltip-icon:hover{background:var(--accent2);}
-.tooltip-box{
-  display:none;
-  position:absolute;
-  top:calc(100% + 8px);
-  left:0;
-  width:260px;
-  background:var(--text);
-  color:#fff;
-  font-family:'Exo 2',sans-serif;
-  font-size:.75rem;
-  font-weight:400;
-  line-height:1.6;
-  padding:.7rem .9rem;
-  border-radius:8px;
-  box-shadow:0 4px 16px rgba(0,0,0,.2);
-  z-index:1000;
-  letter-spacing:0;
-  text-transform:none;
-  pointer-events:none;
-}
-.tooltip-box::before{
-  content:'';position:absolute;top:-5px;left:12px;
-  width:10px;height:10px;background:var(--text);
-  transform:rotate(45deg);border-radius:2px;
-}
-.tooltip-wrap:hover .tooltip-box{display:block;}
-
-
+/* PAGES */
+.page{display:none;position:relative;z-index:5;max-width:1400px;margin:0 auto;padding:1.5rem 2rem;}
+.page.active{display:block;}
 
 /* PANEL */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:14px;
@@ -749,9 +713,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- Final Summary -->
     <div class="final-box">
-      <div class="final-title">🎯 PREDICTED PROTEIN STRUCTURE
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The overall 3D shape prediction combining AI Chou-Fasman analysis and quantum VQE energy optimization. Shows dominant structure, fold topology, stability and minimum energy.</span></span>
-      </div>
+      <div class="final-title">🎯 PREDICTED PROTEIN STRUCTURE</div>
       <div class="final-grid">
         <div class="final-item"><div class="fi-val" id="res-structure">-</div><div class="fi-lbl">Secondary Structure</div></div>
         <div class="final-item"><div class="fi-val" id="res-fold">-</div><div class="fi-lbl">Fold Topology</div></div>
@@ -770,27 +732,19 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- ④ QUANTUM ENERGY IMPROVEMENT -->
     <div class="panel">
-      <div class="panel-title">⚛ QUANTUM ENERGY OPTIMIZATION
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">VQE (Variational Quantum Eigensolver) finds the minimum energy conformation of the protein. Lower energy = more stable fold. The improvement shows how much better quantum optimization is vs naive classical calculation.</span></span>
-      </div>
+      <div class="panel-title">⚛ QUANTUM ENERGY OPTIMIZATION</div>
       <div class="quantum-improvement">
         <div class="qi-card">
           <div class="qi-val qi-classical" id="qi-classical">—</div>
-          <div class="qi-lbl">Classical Energy (eV)
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The naive sum of all amino acid interaction energies calculated classically — hydrophobic attractions, electrostatic repulsions, and hydrogen bonds. This is the starting point before quantum optimization.</span></span>
-          </div>
+          <div class="qi-lbl">Classical Energy (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-quantum" id="qi-quantum">—</div>
-          <div class="qi-lbl">Quantum Optimized (eV)
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">The true quantum ground state energy found by VQE — the lowest possible energy the protein can reach. This is the most stable conformation. More negative = more stable fold.</span></span>
-          </div>
+          <div class="qi-lbl">Quantum Optimized (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-improvement" id="qi-improvement">—</div>
-          <div class="qi-lbl">VQE Improvement
-            <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">How much the quantum VQE optimization improved over the classical energy estimate. A higher percentage means quantum found a significantly more stable conformation than classical methods predicted.</span></span>
-          </div>
+          <div class="qi-lbl">VQE Improvement</div>
         </div>
       </div>
       <div style="text-align:center;margin-top:.4rem;">
@@ -802,9 +756,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
     <div class="results-grid">
       <!-- AI Confidence Scores -->
       <div class="panel">
-        <div class="panel-title">🤖 AI Structure Prediction
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Uses the Chou-Fasman algorithm (1978) — real biochemical propensity tables for each amino acid. Predicts how likely each residue is to form Alpha Helix, Beta Sheet, Beta Turn or Random Coil.</span></span>
-        </div>
+        <div class="panel-title">🤖 AI Structure Prediction</div>
         <div id="conf-bars"></div>
         <div style="margin-top:.8rem;">
           <div style="font-size:.75rem;color:var(--dim);margin-bottom:.4rem;">HELIX REGIONS</div>
@@ -818,9 +770,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
       <!-- VQE Energy Convergence -->
       <div class="panel">
-        <div class="panel-title">⚛ VQE Energy Convergence
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Shows how the quantum VQE algorithm converges to the minimum energy over iterations. Each point is one quantum circuit evaluation. The curve dropping shows the optimizer finding a more stable protein conformation.</span></span>
-        </div>
+        <div class="panel-title">⚛ VQE Energy Convergence</div>
         <canvas id="vqe-canvas" height="180" style="width:100%;"></canvas>
       </div>
     </div>
@@ -828,9 +778,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
     <div class="results-grid">
       <!-- 3D Structure -->
       <div class="panel">
-        <div class="panel-title">🔭 3D Structure Visualization
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">3D representation of the protein based on predicted secondary structure. Colours show amino acid properties — red = hydrophobic (water-repelling), blue = hydrophilic (water-loving), green = positively charged, orange = negatively charged.</span></span>
-        </div>
+        <div class="panel-title">🔭 3D Structure Visualization</div>
         <canvas id="canvas3d"></canvas>
         <div class="viz-controls">
           <button class="viz-btn active" id="vbtn-ribbon" onclick="setVizMode('ribbon')">Ribbon</button>
@@ -842,9 +790,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
       <!-- Quantum States -->
       <div class="panel">
-        <div class="panel-title">⚛ Quantum State Probabilities
-          <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Each bar shows the probability of the protein being in a specific quantum state (e.g. |0101⟩). The highest probability state corresponds to the most energetically favourable fold. This is the quantum superposition of all possible conformations.</span></span>
-        </div>
+        <div class="panel-title">⚛ Quantum State Probabilities</div>
         <div class="qstate-list" id="qstate-list"></div>
         <div style="margin-top:1rem;">
           <div style="font-size:.75rem;color:var(--dim);margin-bottom:.5rem;">ENERGY LANDSCAPE</div>
@@ -855,9 +801,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- AA Breakdown -->
     <div class="panel">
-      <div class="panel-title">🔬 Amino Acid Sequence Map
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Each block is one amino acid in your sequence. Colour shows its chemical property — hydrophobic (red) residues drive protein folding inward, hydrophilic (blue) face outward toward water. Charged residues (green/orange) create electrostatic interactions.</span></span>
-      </div>
+      <div class="panel-title">🔬 Amino Acid Sequence Map</div>
       <div class="aa-chain" id="result-aa-chain" style="margin-bottom:.8rem;"></div>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:.75rem;color:var(--dim);">
         <span>🔴 Hydrophobic</span><span>🔵 Hydrophilic</span>
@@ -867,9 +811,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- ① DISEASE RISK / CONCLUSION BOX — at the end like a research conclusion -->
     <div class="panel conclusion-box" id="conclusion-box">
-      <div class="conclusion-title">🔬 DISEASE RISK ASSESSMENT
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Detects which of 16 incurable protein misfolding diseases this sequence is associated with, using biochemical markers from published research (Chiti & Dobson 2006, Prusiner 1997, Perutz 1994 etc.). Risk score is based on how many disease markers are present.</span></span>
-      </div>
+      <div class="conclusion-title">🔬 DISEASE RISK ASSESSMENT</div>
       <div class="risk-row">
         <span class="risk-label">Overall Risk:</span>
         <span class="risk-badge" id="risk-badge">—</span>
@@ -881,18 +823,14 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 
     <!-- ② INTERPRETATION BOX -->
     <div class="panel interp-box" style="border-left:4px solid var(--accent);">
-      <div class="interp-title">📋 INTERPRETATION
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Plain English explanation of what the structural analysis means — breaking down what each key metric (beta-sheet content, hydrophobicity, instability index, quantum energy) tells us about this protein's disease risk.</span></span>
-      </div>
+      <div class="interp-title">📋 INTERPRETATION</div>
       <ul class="interp-bullets" id="interp-bullets"></ul>
       <div class="interp-conclusion" id="interp-conclusion">—</div>
     </div>
 
     <!-- ③ COMPARISON — only shown for misfolded/diseased proteins -->
     <div class="panel" id="comparison-panel" style="display:none;">
-      <div class="panel-title" id="comparison-title">🔭 COMPARISON WITH HEALTHY PROTEIN
-        <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-box">Compares your protein's structural properties against a known healthy reference protein. Green means your protein matches or is better than healthy. Red means it differs in a way associated with disease risk.</span></span>
-      </div>
+      <div class="panel-title" id="comparison-title">🔭 COMPARISON WITH HEALTHY PROTEIN</div>
       <div class="ref-name" id="ref-name">—</div>
       <div style="font-size:.8rem;color:var(--dim);margin-bottom:.8rem;">
         ✅ Green = same or better than healthy &nbsp;|&nbsp; ⚠️ Red = worse than healthy
