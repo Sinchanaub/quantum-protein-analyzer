@@ -1137,7 +1137,18 @@ fbAuth.onAuthStateChanged(user => {
   }
 });
 
-async function getToken(){ return currentUser ? currentUser.getIdToken() : ''; }
+async function getToken(){
+  return new Promise((resolve, reject) => {
+    const unsubscribe = fbAuth.onAuthStateChanged(user => {
+      unsubscribe();
+      if(user){
+        user.getIdToken(true).then(resolve).catch(reject);
+      } else {
+        resolve('');
+      }
+    });
+  });
+}
 
 function toggleAuthMode(){
   const isLogin = document.getElementById('auth-login-form').style.display !== 'none';
@@ -1320,6 +1331,12 @@ async function analyze(){
 
   try{
     const token = await getToken();
+    if(!token){
+      clearInterval(stepInterval);
+      showLoading(false);
+      showError('Please sign in before running analysis.');
+      return;
+    }
     const res  = await fetch('/api/analyze', {
       method:'POST',
       headers:{'Content-Type':'application/json', 'Authorization':'Bearer '+token},
