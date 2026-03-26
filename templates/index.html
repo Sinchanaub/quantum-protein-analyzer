@@ -1924,6 +1924,7 @@ async function loadSaved(){
   grid.innerHTML = '<div style="color:var(--dim);padding:2rem;">Loading...</div>';
   try{
     const token = await getToken();
+    console.log('TOKEN:', token);
     const res  = await fetch('/api/results', {
       headers:{'Authorization':'Bearer '+token}
     });
