@@ -32,7 +32,16 @@ CORS(app)
 # Project Settings → Service Accounts → Generate new private key
 # Save it as firebase_service_account.json in the same folder as this file.
 
-cred = credentials.Certificate("firebase_service_account.json")
+import os
+
+firebase_creds_json = os.environ.get("FIREBASE_CREDENTIALS")
+if firebase_creds_json:
+    # Running on Render — load from environment variable
+    cred = credentials.Certificate(json.loads(firebase_creds_json))
+else:
+    # Running locally — load from file
+    cred = credentials.Certificate("firebase_service_account.json")
+
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 COLLECTION = "protein_results"
