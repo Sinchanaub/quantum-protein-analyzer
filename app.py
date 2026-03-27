@@ -32,7 +32,7 @@ CORS(app)
 # Project Settings → Service Accounts → Generate new private key
 # Save it as firebase_service_account.json in the same folder as this file.
 
-import os
+import os, json
 
 firebase_creds_json = os.environ.get("FIREBASE_CREDENTIALS")
 if firebase_creds_json:
