@@ -34,8 +34,8 @@ CORS(app)
 
 import os, json
 
-firebase_creds_json = os.environ.get("FIREBASE_CREDENTIALS")
-if firebase_creds_json:
+_creds_raw = os.environ.get("FIREBASE_CREDENTIALS")
+if _creds_raw:
      cred = credentials.Certificate(json.loads(_cred_raw))
 else:
     # Running locally — load from file
