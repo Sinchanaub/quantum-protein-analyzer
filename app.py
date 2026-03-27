@@ -36,7 +36,7 @@ import os, json
 
 _creds_raw = os.environ.get("FIREBASE_CREDENTIALS")
 if _creds_raw:
-     cred = credentials.Certificate(json.loads(_cred_raw))
+     cred = credentials.Certificate(json.loads(_creds_raw))
 else:
     # Running locally — load from file
     cred = credentials.Certificate("firebase_service_account.json")
