@@ -36,8 +36,7 @@ import os, json
 
 firebase_creds_json = os.environ.get("FIREBASE_CREDENTIALS")
 if firebase_creds_json:
-    # Running on Render — load from environment variable
-    cred = credentials.Certificate(json.loads(firebase_creds_json))
+     cred = credentials.Certificate(json.loads(_cred_raw))
 else:
     # Running locally — load from file
     cred = credentials.Certificate("firebase_service_account.json")
@@ -51,20 +50,19 @@ COLLECTION = "protein_results"
 # AUTH HELPER
 # ─────────────────────────────────────────────────────
 def verify_token(req):
-    """
-    Verify Firebase ID token from Authorization header.
-    Returns decoded token dict on success, None on failure.
-    Frontend must send: Authorization: Bearer <idToken>
-    """
     auth_header = req.headers.get("Authorization", "")
+    print(f"AUTH HEADER: '{ auth_header[:30] if auth_header else 'MISSING'}'")
     if not auth_header.startswith("Bearer "):
+        print("AUTH FAIL: No Bearer token in header")
         return None
     id_token = auth_header.split("Bearer ")[1]
     try:
-        return auth.verify_id_token(id_token)
-    except Exception:
+        result = auth.verify_id_token(id_token)
+        print(f"AUTH OK: uid={result['uid']}")
+        return result
+    except Exception as e:
+        print(f"TOKEN VERIFY FAILED: {e}")
         return None
-
 
 # ─────────────────────────────────────────────────────
 # AMINO ACID DATA
