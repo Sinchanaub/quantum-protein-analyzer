@@ -1,0 +1,14 @@
+# Firebase credentials — NEVER upload this
+firebase_service_account.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db

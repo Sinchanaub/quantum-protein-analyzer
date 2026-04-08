@@ -1,0 +1,8 @@
+flask
+flask-cors
+firebase-admin
+qiskit
+qiskit-aer
+scipy
+numpy
+gunicorn
