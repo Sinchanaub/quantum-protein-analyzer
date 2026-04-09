@@ -202,54 +202,6 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .tc-code{background:var(--bg3);border:1px solid var(--border);border-radius:4px;
   padding:.7rem;margin-top:.7rem;font-family:monospace;font-size:.75rem;color:var(--accent);white-space:pre;}
 
-/* ── GEN AI STYLES ── */
-.ai-explain-body{font-size:.88rem;color:var(--text);line-height:1.8;white-space:pre-wrap;}
-.ai-explain-body strong{color:var(--accent);font-weight:700;}
-.ai-loading-row{display:flex;align-items:center;gap:.7rem;color:var(--dim);font-size:.85rem;margin-bottom:.6rem;}
-.ai-spinner{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);border-top-color:var(--accent);animation:spin .7s linear infinite;flex-shrink:0;}
-
-/* Chat panel */
-.ai-chat-panel{
-  position:fixed;bottom:1.5rem;right:1.5rem;width:360px;max-height:500px;
-  background:var(--bg2);border:1.5px solid var(--accent);border-radius:16px;
-  box-shadow:0 8px 36px rgba(13,148,136,.25);display:none;flex-direction:column;
-  z-index:2000;overflow:hidden;font-family:'Exo 2',sans-serif;
-}
-.ai-chat-panel.open{display:flex;}
-.ai-chat-header{
-  background:linear-gradient(135deg,#0f766e,#0d9488);
-  padding:.75rem 1rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
-}
-.ai-chat-close{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:1.1rem;padding:.2rem .4rem;border-radius:4px;}
-.ai-chat-close:hover{background:rgba(255,255,255,.15);}
-.ai-chat-messages{flex:1;overflow-y:auto;padding:.8rem;display:flex;flex-direction:column;gap:.55rem;min-height:160px;max-height:320px;}
-.ai-bubble{max-width:90%;padding:.55rem .85rem;border-radius:14px;font-size:.82rem;line-height:1.55;word-break:break-word;}
-.ai-bubble-bot{background:var(--bg3);border:1px solid var(--border);color:var(--text);border-bottom-left-radius:3px;align-self:flex-start;}
-.ai-bubble-bot strong{color:var(--accent);}
-.ai-bubble-user{background:linear-gradient(135deg,rgba(13,148,136,.18),rgba(224,94,58,.12));border:1px solid rgba(13,148,136,.3);color:var(--text);border-bottom-right-radius:3px;align-self:flex-end;}
-.ai-typing{display:inline-flex;gap:4px;padding:.3rem .5rem;}
-.ai-typing span{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:aiDot .9s infinite;}
-.ai-typing span:nth-child(2){animation-delay:.2s;}
-.ai-typing span:nth-child(3){animation-delay:.4s;}
-@keyframes aiDot{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-7px);}}
-.ai-chat-input-row{padding:.6rem;border-top:1px solid var(--border);display:flex;gap:.4rem;flex-shrink:0;}
-.ai-chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.5rem .8rem;font-size:.83rem;color:var(--text);font-family:'Exo 2',sans-serif;}
-.ai-chat-input:focus{outline:none;border-color:var(--accent);}
-.ai-chat-send{background:linear-gradient(135deg,#0f766e,#e05e3a);border:none;color:white;padding:.5rem .9rem;border-radius:8px;cursor:pointer;font-size:.75rem;font-family:'Orbitron',monospace;letter-spacing:1px;white-space:nowrap;}
-.ai-chat-send:hover{opacity:.88;}
-
-/* Floating AI button */
-.ai-fab{
-  display:none;position:fixed;bottom:1.5rem;right:1.5rem;
-  width:52px;height:52px;border-radius:50%;
-  background:linear-gradient(135deg,#0f766e,#e05e3a);
-  border:none;color:white;font-size:1.35rem;cursor:pointer;
-  box-shadow:0 4px 20px rgba(13,148,136,.4);z-index:1999;
-  transition:transform .2s,box-shadow .2s;
-}
-.ai-fab:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(13,148,136,.55);}
-.ai-fab.visible{display:flex;align-items:center;justify-content:center;}
-
 /* LOADING OVERLAY */
 #loading{display:none;position:fixed;inset:0;background:rgba(245,240,232,.94);z-index:1000;
   align-items:center;justify-content:center;flex-direction:column;gap:1rem;}
@@ -264,89 +216,6 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 /* ERROR */
 .error-box{background:rgba(153,27,27,.08);border:1px solid var(--red);color:var(--red);
   padding:.8rem 1rem;border-radius:4px;margin-bottom:1rem;font-size:.9rem;}
-
-/* ── INVALID SEQUENCE MODAL (from uploaded design) ── */
-#invalid-modal{
-  position:fixed;inset:0;background:rgba(10,20,20,0.82);z-index:3000;
-  display:none;align-items:center;justify-content:center;
-  backdrop-filter:blur(4px);
-}
-#invalid-modal.show{display:flex;}
-.inv-card{
-  background:linear-gradient(145deg,#0f1f1f,#1a0a0a);
-  border:2px solid var(--red);border-radius:18px;
-  padding:2rem 2.2rem;max-width:520px;width:92vw;
-  box-shadow:0 0 40px rgba(220,38,38,.35),0 0 80px rgba(220,38,38,.12);
-  animation:invPop .3s cubic-bezier(.34,1.56,.64,1);
-  position:relative;
-}
-@keyframes invPop{from{transform:scale(.8);opacity:0;}to{transform:scale(1);opacity:1;}}
-.inv-icon{font-size:3rem;text-align:center;display:block;margin-bottom:.5rem;
-  animation:invShake .5s ease .1s;}
-@keyframes invShake{
-  0%,100%{transform:translateX(0);}
-  20%{transform:translateX(-6px);}
-  40%{transform:translateX(6px);}
-  60%{transform:translateX(-4px);}
-  80%{transform:translateX(4px);}
-}
-.inv-title{
-  font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;
-  color:#ff4444;text-align:center;letter-spacing:2px;
-  margin-bottom:.4rem;text-transform:uppercase;
-}
-.inv-subtitle{
-  text-align:center;font-size:.8rem;color:rgba(255,100,100,.75);
-  letter-spacing:1.5px;margin-bottom:1.2rem;
-}
-.inv-section{margin-bottom:1rem;}
-.inv-label{font-size:.7rem;color:rgba(255,200,200,.6);letter-spacing:1.5px;
-  text-transform:uppercase;margin-bottom:.35rem;}
-.inv-invalid-chars{display:flex;flex-wrap:wrap;gap:.4rem;}
-.inv-char-badge{
-  background:rgba(220,38,38,.2);border:1px solid rgba(220,38,38,.5);
-  color:#ff8080;font-family:monospace;font-size:.95rem;font-weight:700;
-  padding:.2rem .6rem;border-radius:6px;letter-spacing:1px;
-}
-.inv-valid-grid{display:flex;flex-wrap:wrap;gap:.3rem;}
-.inv-valid-aa{
-  background:rgba(13,148,136,.15);border:1px solid rgba(13,148,136,.35);
-  color:#5eead4;font-family:monospace;font-size:.75rem;font-weight:700;
-  padding:.15rem .45rem;border-radius:5px;
-}
-.inv-examples{display:flex;flex-direction:column;gap:.4rem;}
-.inv-ex-row{
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-radius:8px;padding:.45rem .7rem;cursor:pointer;transition:all .2s;
-}
-.inv-ex-row:hover{border-color:var(--accent);background:rgba(13,148,136,.1);}
-.inv-ex-name{font-size:.7rem;color:rgba(200,255,240,.6);letter-spacing:1px;margin-bottom:2px;}
-.inv-ex-seq{font-family:monospace;font-size:.78rem;color:#5eead4;word-break:break-all;}
-.inv-close{
-  width:100%;margin-top:1.2rem;
-  background:linear-gradient(135deg,#7f1d1d,#dc2626);
-  border:none;color:white;padding:.75rem;border-radius:10px;
-  font-family:'Orbitron',monospace;font-size:.8rem;letter-spacing:2px;
-  cursor:pointer;font-weight:700;transition:all .2s;
-}
-.inv-close:hover{opacity:.85;transform:translateY(-1px);}
-.inv-dismiss{
-  width:100%;margin-top:.5rem;
-  background:transparent;border:1px solid rgba(255,255,255,.15);
-  color:rgba(255,255,255,.5);padding:.5rem;border-radius:8px;
-  font-family:'Exo 2',sans-serif;font-size:.8rem;cursor:pointer;transition:all .2s;
-}
-.inv-dismiss:hover{border-color:rgba(255,255,255,.35);color:rgba(255,255,255,.75);}
-/* textarea flash on invalid */
-.seq-input.invalid-flash{
-  border-color:var(--red)!important;
-  box-shadow:0 0 0 3px rgba(220,38,38,.2)!important;
-  animation:flashBorder .6s ease;
-}
-@keyframes flashBorder{
-  0%,100%{box-shadow:0 0 0 3px rgba(220,38,38,.2);}
-  50%{box-shadow:0 0 0 6px rgba(220,38,38,.4);}
-}
 
 /* TOAST */
 #toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--bg2);
@@ -557,7 +426,7 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .quantum-improvement{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin-bottom:1rem;}
 .qi-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:.8rem;text-align:center;}
 .qi-val{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:700;}
-.qi-lbl{font-size:.65rem;color:var(--dim);margin-top:3px;letter-spacing:1px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:3px;}
+.qi-lbl{font-size:.65rem;color:var(--dim);margin-top:3px;letter-spacing:1px;text-transform:uppercase;}
 .qi-improvement{color:var(--green);}
 .qi-classical{color:var(--accent);}
 .qi-quantum{color:var(--accent2);}
@@ -610,118 +479,31 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
   margin-bottom:.7rem;display:none;}
 .custom-detect.show{display:block;}
 
-/* ══════════════════════════════════════════════════════
-   ANIMATED LOGIN PAGE
-══════════════════════════════════════════════════════ */
-#auth-overlay{
-  position:fixed;inset:0;z-index:2000;
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  background:linear-gradient(135deg,#d0f0ee 0%,#e6f7f7 25%,#f0fafa 50%,#e0f5f5 75%,#d0eeee 100%);
-  background-size:400% 400%;
-  animation:bgShift 12s ease infinite;
-}
-@keyframes bgShift{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-.aa-ribbon{
-  position:absolute;font-family:'Orbitron',monospace;font-size:.7rem;
-  letter-spacing:3px;pointer-events:none;white-space:nowrap;opacity:0;
-  color:rgba(13,148,136,.35);
-  animation:ribbonFloat linear infinite;
-}
-@keyframes ribbonFloat{
-  0%{opacity:0;transform:translateY(100vh) translateX(0);}
-  8%{opacity:.6;}
-  92%{opacity:.6;}
-  100%{opacity:0;transform:translateY(-12vh) translateX(var(--drift,20px));}
-}
-.dna-bubble{
-  position:absolute;border-radius:50%;pointer-events:none;
-  background:rgba(13,148,136,.08);border:1px solid rgba(13,148,136,.18);
-  animation:bubbleDrift ease-in-out infinite;
-}
-@keyframes bubbleDrift{
-  0%,100%{transform:translateY(0) scale(1);}
-  50%{transform:translateY(-26px) scale(1.1);}
-}
-.scan-line{
-  position:absolute;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(13,148,136,.3),rgba(224,94,58,.2),rgba(13,148,136,.3),transparent);
-  animation:scanMove 7s linear infinite;pointer-events:none;
-}
-@keyframes scanMove{from{top:-1px;}to{top:100vh;}}
-.auth-card{
-  position:relative;z-index:10;width:430px;max-width:94vw;
-  background:rgba(255,255,255,.92);
-  border:1px solid rgba(13,148,136,.25);border-radius:22px;
-  padding:2.2rem 2.4rem 1.8rem;
-  box-shadow:0 0 0 1px rgba(13,148,136,.08),0 32px 80px rgba(13,148,136,.12),0 0 55px rgba(13,148,136,.06),inset 0 1px 0 rgba(255,255,255,.9);
-  backdrop-filter:blur(20px);
-  animation:cardIn .7s cubic-bezier(.34,1.56,.64,1) both;
-}
-@keyframes cardIn{from{opacity:0;transform:scale(.88) translateY(28px);}to{opacity:1;transform:none;}}
-.auth-card::before{
-  content:'';position:absolute;top:0;left:8%;right:8%;height:2px;
-  background:linear-gradient(90deg,transparent,#0d9488,#e05e3a,#0d9488,transparent);
-  border-radius:999px;
-}
-.auth-characters{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:1.2rem;position:relative;height:118px;
-}
-.char-wrap{display:flex;flex-direction:column;align-items:center;gap:3px;animation:charBob 3.2s ease-in-out infinite;}
-.char-wrap.right{animation-delay:.9s;}
-.char-wrap svg{filter:drop-shadow(0 5px 14px rgba(13,148,136,.45));}
-@keyframes charBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
-.char-label{font-family:'Exo 2',sans-serif;font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;}
-.char-label.girl{color:#0d9488;}
-.char-label.boy{color:#3b82f6;}
-.dna-helix-center{position:absolute;left:50%;top:8px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;}
-.helix-rung{display:flex;align-items:center;gap:3px;animation:helixPulse 2.4s ease-in-out infinite;}
-.helix-rung:nth-child(odd){animation-direction:reverse;}
-@keyframes helixPulse{0%,100%{opacity:.5;transform:scaleX(1);}50%{opacity:1;transform:scaleX(1.3);}}
-.helix-dot{width:5px;height:5px;border-radius:50%;}
-.helix-line{width:20px;height:1px;background:rgba(13,148,136,.45);}
-.auth-logo{
-  font-family:'Orbitron',monospace;font-size:1rem;font-weight:900;text-align:center;
-  background:linear-gradient(90deg,#0d9488,#134e4a 45%,#e05e3a 75%,#0d9488);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-size:250% 100%;animation:logoShimmer 4s linear infinite;
-  margin-bottom:.2rem;letter-spacing:.8px;
-}
-@keyframes logoShimmer{to{background-position:-250% 0;}}
-.auth-sub{font-size:.62rem;color:rgba(13,100,90,.55);letter-spacing:2.5px;text-transform:uppercase;text-align:center;margin-bottom:1.4rem;}
-.auth-divider{display:flex;align-items:center;gap:.6rem;margin:.65rem 0;}
-.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:rgba(13,148,136,.22);}
-.auth-divider span{font-size:.62rem;color:rgba(13,100,90,.45);letter-spacing:2px;}
-.auth-input{
-  width:100%;background:var(--bg3);border:1px solid rgba(13,148,136,.28);
-  color:var(--text);padding:.72rem 1rem;border-radius:10px;
-  font-family:'Exo 2',sans-serif;font-size:.87rem;margin-bottom:.62rem;outline:none;transition:border .2s,box-shadow .2s;
-}
-.auth-input::placeholder{color:rgba(13,100,90,.38);}
-.auth-input:focus{border-color:#0d9488;box-shadow:0 0 0 3px rgba(13,148,136,.14);}
-.btn-auth{
-  width:100%;background:linear-gradient(135deg,#0f766e 0%,#0d9488 45%,#e05e3a 100%);
-  background-size:200% 100%;border:none;color:white;padding:.83rem;border-radius:10px;cursor:pointer;
-  font-family:'Orbitron',monospace;font-size:.73rem;letter-spacing:2px;font-weight:700;
-  transition:all .3s;margin-bottom:.55rem;box-shadow:0 4px 18px rgba(13,148,136,.28);
-}
-.btn-auth:hover{background-position:-100% 0;transform:translateY(-2px);box-shadow:0 8px 28px rgba(13,148,136,.44);}
-.btn-auth-ghost{
-  width:100%;background:rgba(13,148,136,.07);border:1px solid rgba(13,148,136,.28);
-  color:var(--text);padding:.7rem;border-radius:10px;cursor:pointer;
-  font-family:'Exo 2',sans-serif;font-size:.82rem;transition:all .2s;margin-bottom:.45rem;
-  display:flex;align-items:center;justify-content:center;gap:.5rem;
-}
-.btn-auth-ghost:hover{background:rgba(13,148,136,.13);border-color:rgba(13,148,136,.5);transform:translateY(-1px);}
-.auth-toggle{color:#0d9488;cursor:pointer;font-size:.76rem;margin-top:.7rem;display:inline-block;transition:opacity .2s;}
-.auth-toggle:hover{opacity:.7;text-decoration:underline;}
-.auth-err{color:#dc2626;font-size:.72rem;margin-top:.28rem;min-height:1rem;}
-/* User pill */
+/* AUTH OVERLAY */
+#auth-overlay{position:fixed;inset:0;background:rgba(240,250,250,0.97);z-index:2000;
+  display:flex;align-items:center;justify-content:center;}
+.auth-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;
+  padding:2.5rem;width:380px;max-width:92vw;box-shadow:0 8px 32px rgba(13,148,136,.12);}
+.auth-logo{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:900;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.3rem;}
+.auth-sub{font-size:.7rem;color:var(--dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.8rem;}
+.auth-input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);
+  padding:.7rem 1rem;border-radius:10px;font-family:'Exo 2',sans-serif;font-size:.9rem;
+  margin-bottom:.7rem;outline:none;transition:border .2s;}
+.auth-input:focus{border-color:var(--accent);}
+.btn-auth{width:100%;background:linear-gradient(135deg,#0f766e,#e05e3a);border:none;color:white;
+  padding:.85rem;border-radius:10px;cursor:pointer;font-family:'Orbitron',monospace;
+  font-size:.8rem;letter-spacing:2px;font-weight:700;transition:all .2s;margin-bottom:.6rem;}
+.btn-auth:hover{opacity:.88;transform:translateY(-1px);}
+.btn-auth-ghost{width:100%;background:transparent;border:1px solid var(--border);color:var(--dim);
+  padding:.7rem;border-radius:10px;cursor:pointer;font-family:'Exo 2',sans-serif;font-size:.85rem;
+  transition:all .2s;margin-bottom:.5rem;}
+.btn-auth-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.auth-toggle{color:var(--accent);cursor:pointer;font-size:.8rem;margin-top:.8rem;display:inline-block;}
+.auth-toggle:hover{text-decoration:underline;}
+.auth-err{color:var(--red);font-size:.75rem;margin-top:.4rem;min-height:1rem;}
+/* User pill in header */
 .user-pill{display:flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.15);
   border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.3rem .9rem .3rem .4rem;}
 .user-avatar{width:26px;height:26px;border-radius:50%;background:var(--accent2);
@@ -922,253 +704,37 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
 .unknown-warn-title{font-size:.72rem;color:var(--yellow);font-weight:700;letter-spacing:1px;
   text-transform:uppercase;margin-bottom:.3rem;}
 .unknown-warn-body{font-size:.72rem;color:var(--dim);line-height:1.6;}
-
-/* ── HELP BUTTON (? icon) ── */
-.hb{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:16px;height:16px;border-radius:50%;
-  background:rgba(13,148,136,.18);border:1px solid rgba(13,148,136,.45);
-  color:var(--accent);font-size:.62rem;font-weight:700;font-family:'Exo 2',sans-serif;
-  cursor:help;margin-left:5px;vertical-align:middle;
-  transition:background .15s,border-color .15s;
-  position:relative;top:-1px;
-  flex-shrink:0;line-height:1;
-}
-.hb:hover{background:rgba(13,148,136,.35);border-color:var(--accent);}
-/* Inside dark final-box the hb needs lighter colours */
-.final-box .hb{
-  background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.4);
-  color:rgba(255,255,255,.85);
-}
-.final-box .hb:hover{background:rgba(255,255,255,.28);}
-/* fi-lbl row: keep label + hb on one line */
-.fi-lbl{display:flex;align-items:center;justify-content:center;gap:3px;}
 </style>
 </head>
 <body>
 
-<!-- AUTH OVERLAY — Animated Login -->
+<!-- AUTH OVERLAY -->
 <div id="auth-overlay">
-
-  <!-- Scan line -->
-  <div class="scan-line"></div>
-
-  <!-- Floating amino acid sequence ribbons (JS will inject more) -->
-  <div id="aa-ribbons-container"></div>
-
-  <!-- Floating DNA bubbles -->
-  <div id="dna-bubbles-container"></div>
-
-  <!-- Login Card -->
   <div class="auth-card">
-
-    <!-- Characters: girl (medical) + DNA helix + boy (coder) -->
-    <div class="auth-characters">
-
-      <!-- Girl — medical researcher -->
-      <div class="char-wrap left">
-        <svg width="72" height="100" viewBox="0 0 72 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- lab coat body -->
-          <rect x="14" y="52" width="44" height="42" rx="6" fill="#e0f2f1" opacity=".95"/>
-          <!-- coat lapels -->
-          <polygon points="36,52 20,52 26,72" fill="#b2dfdb"/>
-          <polygon points="36,52 52,52 46,72" fill="#b2dfdb"/>
-          <!-- coat pockets -->
-          <rect x="17" y="68" width="10" height="8" rx="2" fill="#b2dfdb"/>
-          <!-- stethoscope -->
-          <path d="M28 60 Q22 70 26 78 Q30 84 34 80" stroke="#0d9488" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <circle cx="34" cy="80" r="3" fill="#0d9488"/>
-          <!-- red cross on pocket -->
-          <rect x="20" y="71" width="4" height="1.5" rx=".5" fill="#e05e3a"/>
-          <rect x="21.5" y="69.5" width="1.5" height="4" rx=".5" fill="#e05e3a"/>
-          <!-- shirt under coat -->
-          <rect x="26" y="52" width="20" height="22" rx="2" fill="#ccfbf1"/>
-          <!-- skirt / pants -->
-          <rect x="16" y="82" width="18" height="16" rx="4" fill="#0d9488" opacity=".8"/>
-          <rect x="38" y="82" width="18" height="16" rx="4" fill="#0d9488" opacity=".8"/>
-          <!-- shoes -->
-          <ellipse cx="25" cy="97" rx="8" ry="3.5" fill="#134e4a"/>
-          <ellipse cx="47" cy="97" rx="8" ry="3.5" fill="#134e4a"/>
-          <!-- neck -->
-          <rect x="31" y="42" width="10" height="12" rx="4" fill="#ffb385"/>
-          <!-- head -->
-          <ellipse cx="36" cy="34" rx="15" ry="16" fill="#ffb385"/>
-          <!-- hair — long dark hair -->
-          <ellipse cx="36" cy="22" rx="15" ry="10" fill="#2d1b0e"/>
-          <rect x="21" y="22" width="6" height="28" rx="3" fill="#2d1b0e"/>
-          <rect x="45" y="22" width="6" height="28" rx="3" fill="#2d1b0e"/>
-          <!-- eyes -->
-          <ellipse cx="30" cy="34" rx="2.5" ry="3" fill="#1a0a00"/>
-          <ellipse cx="42" cy="34" rx="2.5" ry="3" fill="#1a0a00"/>
-          <circle cx="31" cy="33" r=".8" fill="white"/>
-          <circle cx="43" cy="33" r=".8" fill="white"/>
-          <!-- smile -->
-          <path d="M31 41 Q36 45 41 41" stroke="#c0785a" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-          <!-- glasses -->
-          <rect x="26.5" y="31.5" width="8" height="5" rx="2.5" stroke="#0d9488" stroke-width="1.2" fill="rgba(13,148,136,.12)"/>
-          <rect x="37.5" y="31.5" width="8" height="5" rx="2.5" stroke="#0d9488" stroke-width="1.2" fill="rgba(13,148,136,.12)"/>
-          <line x1="34.5" y1="34" x2="37.5" y2="34" stroke="#0d9488" stroke-width="1"/>
-          <!-- clipboard in hand -->
-          <rect x="4" y="60" width="12" height="16" rx="2" fill="#fff" stroke="#0d9488" stroke-width="1"/>
-          <line x1="6" y1="65" x2="14" y2="65" stroke="#0d9488" stroke-width=".8"/>
-          <line x1="6" y1="68" x2="14" y2="68" stroke="#0d9488" stroke-width=".8"/>
-          <line x1="6" y1="71" x2="11" y2="71" stroke="#e05e3a" stroke-width=".8"/>
-          <rect x="8" y="58" width="4" height="4" rx="1" fill="#0d9488"/>
-          <!-- arm holding clipboard -->
-          <path d="M14 62 Q10 62 8 62" stroke="#ffb385" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M58 64 Q64 64 64 70" stroke="#ffb385" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <!-- molecule floating near -->
-          <circle cx="63" cy="54" r="4" fill="none" stroke="#5eead4" stroke-width="1.2"/>
-          <circle cx="58" cy="46" r="2.5" fill="#5eead4" opacity=".7"/>
-          <circle cx="68" cy="46" r="2.5" fill="#e05e3a" opacity=".7"/>
-          <line x1="63" y1="50" x2="60" y2="48" stroke="#5eead4" stroke-width="1"/>
-          <line x1="63" y1="50" x2="66" y2="48" stroke="#e05e3a" stroke-width="1"/>
-        </svg>
-        <span class="char-label girl">Researcher</span>
-      </div>
-
-      <!-- DNA helix in center -->
-      <div class="dna-helix-center">
-        <div class="helix-rung"><div class="helix-dot" style="background:#5eead4"></div><div class="helix-line"></div><div class="helix-dot" style="background:#e05e3a"></div></div>
-        <div class="helix-rung" style="animation-delay:.3s"><div class="helix-dot" style="background:#e05e3a"></div><div class="helix-line"></div><div class="helix-dot" style="background:#5eead4"></div></div>
-        <div class="helix-rung" style="animation-delay:.6s"><div class="helix-dot" style="background:#93c5fd"></div><div class="helix-line"></div><div class="helix-dot" style="background:#fde68a"></div></div>
-        <div class="helix-rung" style="animation-delay:.9s"><div class="helix-dot" style="background:#fde68a"></div><div class="helix-line"></div><div class="helix-dot" style="background:#93c5fd"></div></div>
-        <div class="helix-rung" style="animation-delay:1.2s"><div class="helix-dot" style="background:#5eead4"></div><div class="helix-line"></div><div class="helix-dot" style="background:#e05e3a"></div></div>
-        <div class="helix-rung" style="animation-delay:1.5s"><div class="helix-dot" style="background:#c084fc"></div><div class="helix-line"></div><div class="helix-dot" style="background:#5eead4"></div></div>
-        <span style="font-family:'Orbitron',monospace;font-size:.38rem;color:rgba(13,148,136,.6);letter-spacing:1px;margin-top:2px;">DNA</span>
-      </div>
-
-      <!-- Boy — coder -->
-      <div class="char-wrap right">
-        <svg width="72" height="100" viewBox="0 0 72 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- hoodie body -->
-          <rect x="12" y="50" width="48" height="44" rx="6" fill="#1e3a5f" opacity=".95"/>
-          <!-- hoodie hood strings -->
-          <line x1="36" y1="50" x2="30" y2="62" stroke="#93c5fd" stroke-width="1.2"/>
-          <line x1="36" y1="50" x2="42" y2="62" stroke="#93c5fd" stroke-width="1.2"/>
-          <!-- kangaroo pocket -->
-          <rect x="24" y="68" width="24" height="14" rx="4" fill="#162d4a"/>
-          <!-- code text on hoodie -->
-          <text x="17" y="62" font-family="monospace" font-size="5" fill="#93c5fd" opacity=".85">&lt;/code&gt;</text>
-          <!-- jeans -->
-          <rect x="14" y="82" width="18" height="16" rx="4" fill="#1d4ed8" opacity=".9"/>
-          <rect x="40" y="82" width="18" height="16" rx="4" fill="#1d4ed8" opacity=".9"/>
-          <!-- sneakers -->
-          <ellipse cx="23" cy="97" rx="9" ry="3.5" fill="#f8fafc"/>
-          <ellipse cx="49" cy="97" rx="9" ry="3.5" fill="#f8fafc"/>
-          <rect x="15" y="94" width="16" height="4" rx="2" fill="#e2e8f0"/>
-          <rect x="41" y="94" width="16" height="4" rx="2" fill="#e2e8f0"/>
-          <!-- neck -->
-          <rect x="30" y="40" width="12" height="12" rx="4" fill="#f5c09a"/>
-          <!-- head -->
-          <ellipse cx="36" cy="32" rx="16" ry="16" fill="#f5c09a"/>
-          <!-- short hair -->
-          <ellipse cx="36" cy="19" rx="16" ry="9" fill="#1a0a00"/>
-          <rect x="20" y="19" width="32" height="8" rx="2" fill="#1a0a00"/>
-          <!-- eyes -->
-          <ellipse cx="29.5" cy="32" rx="2.5" ry="2.8" fill="#1a0a00"/>
-          <ellipse cx="42.5" cy="32" rx="2.5" ry="2.8" fill="#1a0a00"/>
-          <circle cx="30.5" cy="31" r=".8" fill="white"/>
-          <circle cx="43.5" cy="31" r=".8" fill="white"/>
-          <!-- focused expression / slight smirk -->
-          <path d="M31 40 Q36 43 40 40" stroke="#c07850" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-          <!-- headphones -->
-          <path d="M20 27 Q20 14 36 14 Q52 14 52 27" stroke="#0d9488" stroke-width="2.5" fill="none"/>
-          <rect x="16" y="26" width="7" height="10" rx="3" fill="#0d9488"/>
-          <rect x="49" y="26" width="7" height="10" rx="3" fill="#0d9488"/>
-          <!-- laptop in lap / arm extended -->
-          <path d="M58 62 Q64 62 64 68" stroke="#f5c09a" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <rect x="54" y="66" width="16" height="10" rx="2" fill="#1e293b"/>
-          <rect x="55" y="67" width="14" height="7" rx="1" fill="#0f172a"/>
-          <!-- code on screen -->
-          <line x1="56" y1="69" x2="62" y2="69" stroke="#5eead4" stroke-width=".6"/>
-          <line x1="56" y1="71" x2="65" y2="71" stroke="#93c5fd" stroke-width=".6"/>
-          <line x1="56" y1="73" x2="60" y2="73" stroke="#fde68a" stroke-width=".6"/>
-          <!-- cursor blink on screen -->
-          <rect x="60" y="72.5" width="1.2" height="2" rx=".4" fill="#5eead4" opacity=".9">
-            <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
-          </rect>
-          <!-- arm holding laptop -->
-          <path d="M14 62 Q8 64 8 70" stroke="#f5c09a" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <!-- floating quantum symbol -->
-          <circle cx="8" cy="44" r="5" fill="none" stroke="#e05e3a" stroke-width="1.2" stroke-dasharray="2,2"/>
-          <text x="5.5" y="47.5" font-family="monospace" font-size="6" fill="#e05e3a" opacity=".8">ψ</text>
-        </svg>
-        <span class="char-label boy">Developer</span>
-      </div>
-    </div>
-
     <div class="auth-logo">QUANTUM AI PROTEIN</div>
     <div class="auth-sub">Folding Solver · Sign in to continue</div>
 
-    <!-- Login form -->
     <div id="auth-login-form">
       <input class="auth-input" id="login-email" type="email" placeholder="Email address">
       <input class="auth-input" id="login-password" type="password" placeholder="Password">
-      <button class="btn-auth" onclick="signIn()">⚛ SIGN IN</button>
-      <div class="auth-divider"><span>or</span></div>
-      <button class="btn-auth-ghost" onclick="signInGoogle()">
-        <svg width="17" height="17" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.08 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-3.59-13.46-8.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-        Continue with Google
-      </button>
+      <button class="btn-auth" onclick="signIn()">SIGN IN</button>
+      <button class="btn-auth-ghost" onclick="signInGoogle()">Continue with Google</button>
       <div class="auth-err" id="login-err"></div>
       <div class="auth-toggle" onclick="toggleAuthMode()">No account? Register →</div>
     </div>
 
-    <!-- Register form -->
     <div id="auth-register-form" style="display:none">
       <input class="auth-input" id="reg-email" type="email" placeholder="Email address">
       <input class="auth-input" id="reg-password" type="password" placeholder="Password (min 6 chars)">
-      <button class="btn-auth" onclick="register()">🧬 CREATE ACCOUNT</button>
+      <button class="btn-auth" onclick="register()">CREATE ACCOUNT</button>
       <div class="auth-err" id="reg-err"></div>
       <div class="auth-toggle" onclick="toggleAuthMode()">← Back to sign in</div>
     </div>
   </div>
 </div>
 
-
 <!-- Particle canvas background -->
 <canvas id="particles"></canvas>
-
-<!-- ══ INVALID SEQUENCE MODAL ══ -->
-<div id="invalid-modal">
-  <div class="inv-card">
-    <span class="inv-icon">🧬❌</span>
-    <div class="inv-title">Invalid Amino Acid Sequence</div>
-    <div class="inv-subtitle">Please provide a valid protein sequence</div>
-
-    <div class="inv-section" id="inv-bad-section">
-      <div class="inv-label">🚫 Invalid Characters Detected</div>
-      <div class="inv-invalid-chars" id="inv-bad-chars"></div>
-    </div>
-
-    <div class="inv-section">
-      <div class="inv-label">✅ Valid Amino Acid Codes (20 Standard)</div>
-      <div class="inv-valid-grid" id="inv-valid-grid"></div>
-    </div>
-
-    <div class="inv-section">
-      <div class="inv-label">💡 Try One of These Valid Examples</div>
-      <div class="inv-examples">
-        <div class="inv-ex-row" onclick="loadInvExample('GIVEQCCTSICSLYQLENYCN','Insulin A-chain')">
-          <div class="inv-ex-name">Insulin A-chain</div>
-          <div class="inv-ex-seq">GIVEQCCTSICSLYQLENYCN</div>
-        </div>
-        <div class="inv-ex-row" onclick="loadInvExample('DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA','Beta Amyloid')">
-          <div class="inv-ex-name">Beta Amyloid (Alzheimer's)</div>
-          <div class="inv-ex-seq">DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA</div>
-        </div>
-        <div class="inv-ex-row" onclick="loadInvExample('AELMAELMAELMAELM','Pure Alpha Helix')">
-          <div class="inv-ex-name">Pure Alpha Helix Demo</div>
-          <div class="inv-ex-seq">AELMAELMAELMAELM</div>
-        </div>
-      </div>
-    </div>
-
-    <button class="inv-close" onclick="closeInvalidModal()">✏️ CORRECT MY SEQUENCE</button>
-    <button class="inv-dismiss" onclick="closeInvalidModal()">Dismiss</button>
-  </div>
-</div>
 
 <!-- LOADING -->
 <div id="loading">
@@ -1315,30 +881,12 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
     <div class="final-box">
       <div class="final-title">🎯 PREDICTED PROTEIN STRUCTURE</div>
       <div class="final-grid">
-        <div class="final-item">
-          <div class="fi-val" id="res-structure">-</div>
-          <div class="fi-lbl">Secondary Structure<span class="hb badge-tip" data-tip="The dominant secondary structure predicted by sliding-window Chou-Fasman analysis. Alpha Helix = coiled rod; Beta Sheet = flat arrows; Beta Turn = sharp bend; Random Coil = flexible loop.">?</span></div>
-        </div>
-        <div class="final-item">
-          <div class="fi-val" id="res-fold">-</div>
-          <div class="fi-lbl">Fold Topology<span class="hb badge-tip" data-tip="3D fold topology predicted from the lowest-energy quantum state. Determined by mapping the best qubit state (e.g. |0001⟩) to known structural motifs like TIM barrel, Rossmann fold, Greek key, etc.">?</span></div>
-        </div>
-        <div class="final-item">
-          <div class="fi-val" id="res-stability">-</div>
-          <div class="fi-lbl">Stability<span class="hb badge-tip" data-tip="Stable = Instability Index < 40 and low disease risk. Unstable = II ≥ 40, prone to degradation. Pathologically Stable = stable structure but misfolded, associated with disease (e.g. amyloid fibrils).">?</span></div>
-        </div>
-        <div class="final-item">
-          <div class="fi-val" id="res-energy">-</div>
-          <div class="fi-lbl">Min Energy (eV)<span class="hb badge-tip" data-tip="Quantum ground-state energy in electron-volts (eV), found by exact matrix diagonalization of the protein Hamiltonian. More negative = more stable fold. This is the lowest possible energy the protein can achieve.">?</span></div>
-        </div>
-        <div class="final-item">
-          <div class="fi-val" id="res-conf">-</div>
-          <div class="fi-lbl">AI Confidence<span class="hb badge-tip" data-tip="Confidence of the dominant structure prediction (0–100%). Derived from the Chou-Fasman propensity score of the winning structure class. Reduced by 5% per ambiguous residue substitution.">?</span></div>
-        </div>
-        <div class="final-item">
-          <div class="fi-val" id="res-qubits">-</div>
-          <div class="fi-lbl">Qubits Used<span class="hb badge-tip" data-tip="Number of qubits in the quantum circuit (2–4). Each qubit represents a coarse-grained segment of the protein chain. More qubits = finer resolution but exponentially more computation.">?</span></div>
-        </div>
+        <div class="final-item"><div class="fi-val" id="res-structure">-</div><div class="fi-lbl">Secondary Structure</div></div>
+        <div class="final-item"><div class="fi-val" id="res-fold">-</div><div class="fi-lbl">Fold Topology</div></div>
+        <div class="final-item"><div class="fi-val" id="res-stability">-</div><div class="fi-lbl">Stability</div></div>
+        <div class="final-item"><div class="fi-val" id="res-energy">-</div><div class="fi-lbl">Min Energy (eV)</div></div>
+        <div class="final-item"><div class="fi-val" id="res-conf">-</div><div class="fi-lbl">AI Confidence</div></div>
+        <div class="final-item"><div class="fi-val" id="res-qubits">-</div><div class="fi-lbl">Qubits Used</div></div>
       </div>
     </div>
 
@@ -1351,15 +899,15 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
       <div class="quantum-improvement">
         <div class="qi-card">
           <div class="qi-val qi-classical" id="qi-classical">—</div>
-          <div class="qi-lbl">Classical Energy (eV)<span class="hb badge-tip" data-tip="Energy estimated from pairwise amino acid interactions using hydrophobic, electrostatic, and hydrogen-bond terms — no quantum effects applied. This is the starting point before VQE optimization.">?</span></div>
+          <div class="qi-lbl">Classical Energy (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-quantum" id="qi-quantum">—</div>
-          <div class="qi-lbl">Quantum Ground State (eV)<span class="hb badge-tip" data-tip="The exact minimum energy found by diagonalizing the quantum Hamiltonian matrix (scipy.linalg.eigh). This is the true lowest energy eigenvalue — the most stable configuration the protein can reach.">?</span></div>
+          <div class="qi-lbl">Quantum Optimized (eV)</div>
         </div>
         <div class="qi-card">
           <div class="qi-val qi-improvement" id="qi-improvement">—</div>
-          <div class="qi-lbl">VQE Optimization Gain<span class="hb badge-tip" data-tip="Percentage improvement from classical estimate to quantum ground state: (classical − quantum) / |classical| × 100. Positive = quantum found a lower energy than the classical estimate. Shows the advantage of quantum optimization.">?</span></div>
+          <div class="qi-lbl">VQE Improvement</div>
         </div>
       </div>
       <div style="text-align:center;margin-top:.4rem;">
@@ -1453,55 +1001,8 @@ nav{position:relative;z-index:10;background:var(--bg2);border-bottom:2px solid v
       <div class="compare-grid" id="compare-grid"></div>
     </div>
 
-    <!-- ④ GEN AI EXPERT PANEL (Gemini) -->
-    <div class="panel" id="ai-explain-panel" style="display:none;">
-      <div class="panel-title">🤖 GEN AI EXPERT ANALYSIS
-        <span style="font-size:.62rem;color:var(--dim);font-family:'Exo 2',sans-serif;font-weight:400;letter-spacing:0;margin-left:.6rem;">Powered by Gemini 2.0 Flash · Free</span>
-      </div>
-      <div id="ai-explain-loading" class="ai-loading-row" style="display:none;">
-        <div class="ai-spinner"></div>
-        <span>Gemini is reading the analysis…</span>
-      </div>
-      <div id="ai-explain-error" style="display:none;color:var(--red);font-size:.82rem;padding:.6rem;border:1px solid var(--red);border-radius:8px;background:rgba(220,38,38,.05);margin-bottom:.7rem;"></div>
-      <div id="ai-explain-text" class="ai-explain-body"></div>
-      <div style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap;">
-        <button class="viz-btn" id="ai-explain-btn" onclick="fetchAIExplanation()">✨ Generate Expert Summary</button>
-        <button class="viz-btn" onclick="openAIChat()" style="border-color:var(--accent2);color:var(--accent2);">💬 Ask AI a Question</button>
-      </div>
-    </div>
-
   </div>
 </div>
-
-<!-- ══════════════════════════════════════════ -->
-<!-- AI CHAT PANEL (slide-in, bottom-right)    -->
-<!-- ══════════════════════════════════════════ -->
-<div id="ai-chat-panel" class="ai-chat-panel">
-  <div class="ai-chat-header">
-    <div style="display:flex;align-items:center;gap:.5rem;">
-      <span style="font-size:1.2rem;">🤖</span>
-      <div>
-        <div style="font-family:'Orbitron',monospace;font-size:.72rem;color:white;font-weight:700;letter-spacing:1px;">ASK GEMINI AI</div>
-        <div style="font-size:.6rem;color:rgba(255,255,255,.65);letter-spacing:.5px;">Ask anything about this protein</div>
-      </div>
-    </div>
-    <button onclick="closeAIChat()" class="ai-chat-close">✕</button>
-  </div>
-  <div id="ai-chat-messages" class="ai-chat-messages">
-    <div class="ai-bubble ai-bubble-bot">
-      👋 Hi! I've read your protein analysis. Ask me anything — structure, disease risk, mutations, what the numbers mean, or how the app works!
-    </div>
-  </div>
-  <div class="ai-chat-input-row">
-    <input id="ai-chat-input" type="text" class="ai-chat-input"
-      placeholder="e.g. Why is this protein at high risk?"
-      onkeydown="if(event.key==='Enter')sendAIChat()">
-    <button onclick="sendAIChat()" class="ai-chat-send">SEND</button>
-  </div>
-</div>
-
-<!-- Floating AI chat button (shows after analysis) -->
-<button id="ai-chat-fab" onclick="openAIChat()" class="ai-fab" title="Ask Gemini AI about this protein">🤖</button>
 
 <!-- ══════════════════════════════════════════ -->
 <!-- PAGE: SAVED                               -->
@@ -1620,6 +1121,7 @@ const firebaseConfig = {
   appId: "1:14650843506:web:30da3fe205532ca7663deb",
   measurementId: "G-5L95F6LY87"
 };
+  
 firebase.initializeApp(firebaseConfig);
 const fbAuth = firebase.auth();
 let currentUser = null;
@@ -1635,7 +1137,18 @@ fbAuth.onAuthStateChanged(user => {
   }
 });
 
-async function getToken(){ return currentUser ? currentUser.getIdToken() : ''; }
+async function getToken(){
+  return new Promise((resolve, reject) => {
+    const unsubscribe = fbAuth.onAuthStateChanged(user => {
+      unsubscribe();
+      if(user){
+        user.getIdToken(true).then(resolve).catch(reject);
+      } else {
+        resolve('');
+      }
+    });
+  });
+}
 
 function toggleAuthMode(){
   const isLogin = document.getElementById('auth-login-form').style.display !== 'none';
@@ -1662,79 +1175,12 @@ async function register(){
 }
 
 async function signInGoogle(){
-  const errEl = document.getElementById('login-err');
-  errEl.textContent = '';
   try{
     await fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-  } catch(e){
-    if(e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request'){
-      // User closed the popup — not an error worth showing
-      return;
-    }
-    if(e.code === 'auth/popup-blocked'){
-      errEl.textContent = 'Popup was blocked by your browser. Please allow popups for this site and try again.';
-      return;
-    }
-    errEl.textContent = e.message;
-  }
+  } catch(e){ document.getElementById('login-err').textContent = e.message; }
 }
 
 function signOut(){ fbAuth.signOut(); }
-
-// ── LOGIN PAGE ANIMATIONS ──
-(function(){
-  const AA_SEQS = [
-    'ACDEFGHIKLMNPQRSTVWY','GIVEQCCTSICSLYQLENYCN',
-    'DAEFRHDSGYEVHHQKLVFF','MSKGEELFTGVVPILVELDGD',
-    'AELMAELMAELMAELM',    'CFIVWYCFIVWYCFIVWY',
-    'PQITLWQRPLVTIKIGGQLK','ACGTVWMFILNQKRHDE',
-    'HELIX·SHEET·COIL·TURN','VQE·AI·FOLD·ENERGY',
-    'QUANTUM·PROTEIN·DNA', 'AMINO·ACID·CHAIN·3D',
-  ];
-  const COLORS = ['#0d9488','#14b8a6','#e05e3a','#3b82f6','#10b981','#f97316','#8b5cf6'];
-
-  const overlay = document.getElementById('auth-overlay');
-  const ribbonContainer = document.getElementById('aa-ribbons-container');
-  const bubbleContainer = document.getElementById('dna-bubbles-container');
-
-  // Spawn floating ribbons
-  function spawnRibbon(){
-    if(!overlay || overlay.style.display === 'none') return;
-    const el = document.createElement('div');
-    el.className = 'aa-ribbon';
-    const seq   = AA_SEQS[Math.floor(Math.random()*AA_SEQS.length)];
-    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
-    const left  = Math.random()*95;
-    const dur   = 14 + Math.random()*18;
-    const drift = (Math.random()-0.5)*120;
-    const delay = Math.random()*8;
-    el.textContent = seq;
-    el.style.cssText = `left:${left}%;top:105%;color:${color};opacity:0;--drift:${drift}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
-    ribbonContainer && ribbonContainer.appendChild(el);
-    setTimeout(()=>el.remove(), (dur+delay)*1000+500);
-  }
-
-  // Spawn DNA bubbles
-  function spawnBubble(){
-    if(!overlay || overlay.style.display === 'none') return;
-    const el = document.createElement('div');
-    el.className = 'dna-bubble';
-    const size  = 6 + Math.random()*18;
-    const color = COLORS[Math.floor(Math.random()*COLORS.length)];
-    const left  = Math.random()*96;
-    const top   = 5 + Math.random()*88;
-    const dur   = 4 + Math.random()*6;
-    const delay = Math.random()*4;
-    el.style.cssText = `width:${size}px;height:${size}px;left:${left}%;top:${top}%;background:${color};opacity:${.04+Math.random()*.07};animation-duration:${dur}s;animation-delay:${delay}s;`;
-    bubbleContainer && bubbleContainer.appendChild(el);
-  }
-
-  // Initial bubbles
-  for(let i=0;i<28;i++) spawnBubble();
-  // Continuously spawn ribbons
-  for(let i=0;i<6;i++) setTimeout(spawnRibbon, i*2200);
-  setInterval(spawnRibbon, 2800);
-})();
 </script>
 
 <script>
@@ -1796,20 +1242,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ─────────────────────────────────────────────
-// SEQUENCE INPUT + VALIDATION
+// SEQUENCE INPUT
 // ─────────────────────────────────────────────
-const VALID_AA_LIST = ['A','C','D','E','F','G','H','I','K','L','M','N','P','Q','R','S','T','V','W','Y'];
-
 function updateSeqStats(){
   const raw = document.getElementById('seq-input').value.toUpperCase().replace(/\s/g,'');
   const valid = [...raw].filter(c => VALID_AA.has(c));
   document.getElementById('seq-len').textContent = raw.length;
   document.getElementById('seq-valid').textContent = valid.length;
 
+  // Hydrophobic count
   const hydro = new Set('ACFILMVWY');
   const hCount = valid.filter(c => hydro.has(c)).length;
   document.getElementById('seq-hydro').textContent = valid.length ? `${Math.round(hCount/valid.length*100)}%` : '-';
 
+  // Custom sequence detection
   const knownSeqs = new Set([
     'GIVEQCCTSICSLYQLENYCN',
     'DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA',
@@ -1825,6 +1271,7 @@ function updateSeqStats(){
     customEl.classList.remove('show');
   }
 
+  // AA chain preview (first 50)
   const chain = document.getElementById('aa-chain');
   const COLORS = {A:'#FF6B6B',C:'#4ECDC4',D:'#45B7D1',E:'#96CEB4',F:'#FFEAA7',G:'#DDA0DD',
     H:'#98D8C8',I:'#F7DC6F',K:'#BB8FCE',L:'#F8C471',M:'#82E0AA',N:'#85C1E9',
@@ -1870,22 +1317,7 @@ async function analyze(){
   const errBox = document.getElementById('error-box');
 
   errBox.style.display = 'none';
-
-  if(!seq){ showError('⚠️ Please enter a protein sequence before analyzing.'); return; }
-
-  // ── Frontend pre-validation ──
-  const cleanedSeq = seq.replace(/[\-\s\d]/g,'');
-  const badChars = [...new Set([...cleanedSeq].filter(c => !VALID_AA.has(c)))];
-  if(badChars.length > 0){
-    showInvalidModal(badChars);
-    document.getElementById('seq-input').classList.add('invalid-flash');
-    setTimeout(()=>document.getElementById('seq-input').classList.remove('invalid-flash'),1500);
-    return;
-  }
-  if(cleanedSeq.length < 3){
-    showError('⚠️ Sequence too short! Please enter at least 3 amino acid residues.'); return;
-  }
-
+  if(!seq){ showError('Please enter a protein sequence'); return; }
 
   // Show loading with steps
   showLoading(true);
@@ -1899,6 +1331,12 @@ async function analyze(){
 
   try{
     const token = await getToken();
+    if(!token){
+      clearInterval(stepInterval);
+      showLoading(false);
+      showError('Please sign in before running analysis.');
+      return;
+    }
     const res  = await fetch('/api/analyze', {
       method:'POST',
       headers:{'Content-Type':'application/json', 'Authorization':'Bearer '+token},
@@ -1908,16 +1346,7 @@ async function analyze(){
     clearInterval(stepInterval);
     showLoading(false);
 
-    if(!res.ok){
-      if(data.validation_failed && data.invalid_chars){
-        showInvalidModal(data.invalid_chars);
-        document.getElementById('seq-input').classList.add('invalid-flash');
-        setTimeout(()=>document.getElementById('seq-input').classList.remove('invalid-flash'),1500);
-      } else {
-        showError(data.error || 'Analysis failed');
-      }
-      return;
-    }
+    if(!res.ok){ showError(data.error || 'Analysis failed'); return; }
 
     // Show unknown input warning if any substitutions/skips occurred
     const notes = data.ai_result?.input_notes;
@@ -1926,7 +1355,7 @@ async function analyze(){
     if(notes && notes.has_unknowns){
       let msg = '';
       if(notes.substitutions.length)
-        msg += notes.substitutions.map(s=>`${s.original}\u2192${s.mapped_to} (pos ${s.position})`).join(', ') + '. ';
+        msg += notes.substitutions.map(s=>`${s.original}→${s.mapped_to} (pos ${s.position})`).join(', ') + '. ';
       if(notes.skipped_chars.length)
         msg += `Skipped unrecognized: ${notes.skipped_chars.map(s=>s.char).join(', ')}. `;
       msg += `Confidence reduced by ${notes.confidence_penalty}%.`;
@@ -1937,17 +1366,10 @@ async function analyze(){
     }
 
     currentResult = data;
-    autoSaveResult(data, name, seq);          // ← save to localStorage immediately
     setPipeline(4);
     switchTab('results');
-    chatHistory = [];                          // reset chat for new protein
-    setTimeout(function(){
-      renderResults(data);
-      document.getElementById('ai-explain-panel').style.display = 'block';
-      document.getElementById('ai-chat-fab').style.display      = 'flex';
-      fetchAIExplanation();                    // auto-trigger Gen AI summary
-    }, 80);
-    toast('✅ Analysis complete — result saved!');
+    setTimeout(function(){ renderResults(data); }, 80);
+    toast('✅ Analysis complete!');
 
   } catch(err){
     clearInterval(stepInterval);
@@ -1955,36 +1377,6 @@ async function analyze(){
     showError('Server error: ' + err.message);
   }
 }
-
-// ─────────────────────────────────────────────
-// INVALID SEQUENCE MODAL FUNCTIONS
-// ─────────────────────────────────────────────
-function showInvalidModal(badChars){
-  const badEl = document.getElementById('inv-bad-chars');
-  badEl.innerHTML = badChars.map(c=>`<span class="inv-char-badge">${c}</span>`).join('');
-  document.getElementById('inv-bad-section').style.display = badChars.length ? 'block' : 'none';
-  const validEl = document.getElementById('inv-valid-grid');
-  validEl.innerHTML = VALID_AA_LIST.map(aa=>`<span class="inv-valid-aa">${aa}</span>`).join('');
-  document.getElementById('invalid-modal').classList.add('show');
-}
-
-function closeInvalidModal(){
-  document.getElementById('invalid-modal').classList.remove('show');
-  setTimeout(()=>{ document.getElementById('seq-input').focus(); }, 200);
-}
-
-function loadInvExample(seq, name){
-  document.getElementById('seq-input').value = seq;
-  document.getElementById('protein-name').value = name;
-  updateSeqStats();
-  closeInvalidModal();
-  toast('\u{1F4A1} Example loaded! Click Analyze to run.');
-}
-
-// Close modal on backdrop click
-document.getElementById('invalid-modal').addEventListener('click', function(e){
-  if(e.target === this) closeInvalidModal();
-});
 
 // ─────────────────────────────────────────────
 // RENDER RESULTS
@@ -2525,90 +1917,44 @@ function setVizMode(mode){
 }
 
 // ─────────────────────────────────────────────
-// SAVED RESULTS  — localStorage (instant, no backend needed)
+// SAVED RESULTS
 // ─────────────────────────────────────────────
-const LS_KEY = 'qpf_saved_v2';
-
-function getSavedList(){
-  try{ return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); }
-  catch(e){ return []; }
-}
-function setSavedList(arr){
-  localStorage.setItem(LS_KEY, JSON.stringify(arr));
-}
-
-function autoSaveResult(data, name, sequence){
-  const list = getSavedList();
-  const entry = {
-    id:                 Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    name:               name || 'Unnamed Protein',
-    sequence:           sequence,
-    length:             data.ai_result?.length ?? sequence.length,
-    dominant_structure: data.final?.dominant_structure
-                        || data.ai_result?.dominant_structure || '-',
-    stability:          data.final?.stability || '-',
-    fold_topology:      data.final?.fold_topology || '-',
-    confidence:         data.final?.confidence ?? null,
-    energy:             data.final?.minimum_energy
-                        ?? data.quantum_result?.minimum_energy ?? null,
-    risk_level:         data.disease_risk?.risk_level || '-',
-    created_at:         new Date().toISOString(),
-  };
-  // Replace any entry with same sequence to avoid duplicates
-  const deduped = list.filter(r => r.sequence !== sequence);
-  deduped.unshift(entry);
-  setSavedList(deduped.slice(0, 50));
-}
-
-function _escH(s){
-  return String(s||'-').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-function loadSaved(){
+async function loadSaved(){
   const grid = document.getElementById('saved-grid');
-  const list = getSavedList();
-
-  if(!list.length){
-    grid.innerHTML = `<div style="color:var(--dim);padding:3rem;text-align:center;grid-column:1/-1;">
-      🧬 No saved analyses yet.<br>
-      <span style="font-size:.82rem;">Run an analysis — results save automatically!</span>
-    </div>`;
-    return;
+  grid.innerHTML = '<div style="color:var(--dim);padding:2rem;">Loading...</div>';
+  try{
+    const token = await getToken();
+    console.log('TOKEN:', token);
+    const res  = await fetch('/api/results', {
+      headers:{'Authorization':'Bearer '+token}
+    });
+    const data = await res.json();
+    if(!data.length){
+      grid.innerHTML='<div style="color:var(--dim);padding:3rem;text-align:center;">🧬 No saved analyses yet.<br>Run an analysis first!</div>';
+      return;
+    }
+    grid.innerHTML = data.map(r=>`
+      <div class="saved-card">
+        <div class="sc-head">
+          <span class="sc-name">${r.name||'Unnamed'}</span>
+          <span class="sc-badge">${r.length} aa</span>
+        </div>
+        <div class="sc-seq">${r.sequence}</div>
+        <div class="sc-info">
+          <p>🧬 Structure: ${r.final?.dominant_structure||'-'}</p>
+          <p>⚡ Min Energy: ${r.energy?.toFixed(3)||'-'} eV</p>
+          <p>🔒 Stability: ${r.final?.stability||'-'}</p>
+          <p>📅 ${new Date(r.created_at).toLocaleDateString()}</p>
+        </div>
+        <div class="sc-btns">
+          <button class="btn-load" onclick="loadSavedSeq('${r.sequence}','${r.name}')">📂 Load</button>
+          <button class="btn-del"  onclick="deleteSaved('${r.id}')">🗑 Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }catch(e){
+    grid.innerHTML='<div style="color:var(--red);">Failed to load results</div>';
   }
-
-  const riskColor = {High:'#dc2626',Moderate:'#d97706',Low:'#059669',Healthy:'#059669'};
-
-  grid.innerHTML = list.map(r => {
-    const energyStr = (r.energy != null) ? Number(r.energy).toFixed(3)+' eV' : '-';
-    const confStr   = (r.confidence != null) ? Number(r.confidence).toFixed(1)+'%' : '-';
-    const dateStr   = r.created_at
-      ? new Date(r.created_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})
-      : '-';
-    const rc  = riskColor[r.risk_level] || 'var(--dim)';
-    const safeSeq  = (r.sequence||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    const safeName = (r.name||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return `
-    <div class="saved-card">
-      <div class="sc-head">
-        <span class="sc-name">${_escH(r.name)}</span>
-        <span class="sc-badge">${r.length||'?'} aa</span>
-      </div>
-      <div class="sc-seq" title="${_escH(r.sequence)}">${_escH(r.sequence)}</div>
-      <div class="sc-info">
-        <p>🧬 Structure: <strong>${_escH(r.dominant_structure)}</strong></p>
-        <p>⚡ Min Energy: <strong>${energyStr}</strong></p>
-        <p>🔒 Stability: <strong>${_escH(r.stability)}</strong></p>
-        <p>🎯 Fold: <strong>${_escH(r.fold_topology)}</strong></p>
-        <p>🧪 Confidence: <strong>${confStr}</strong></p>
-        <p style="color:${rc};">⚕ Risk: <strong>${_escH(r.risk_level)}</strong></p>
-        <p style="color:var(--dim);font-size:.7rem;">📅 ${dateStr}</p>
-      </div>
-      <div class="sc-btns">
-        <button class="btn-load" onclick="loadSavedSeq('${safeSeq}','${safeName}')">📂 Load</button>
-        <button class="btn-del"  onclick="deleteSaved('${r.id}')">🗑 Delete</button>
-      </div>
-    </div>`;
-  }).join('');
 }
 
 function loadSavedSeq(seq, name){
@@ -2619,10 +1965,10 @@ function loadSavedSeq(seq, name){
   toast('📂 Sequence loaded! Click Analyze to re-run.');
 }
 
-function deleteSaved(id){
-  if(!confirm('Delete this saved analysis?')) return;
-  const list = getSavedList().filter(r => r.id !== id);
-  setSavedList(list);
+async function deleteSaved(id){
+  if(!confirm('Delete this analysis?')) return;
+  const token = await getToken();
+  await fetch(`/api/results/${id}`, {method:'DELETE', headers:{'Authorization':'Bearer '+token}});
   loadSaved();
   toast('🗑 Deleted');
 }
@@ -2972,159 +2318,6 @@ function toast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-// ─────────────────────────────────────────────
-// GEN AI — EXPERT EXPLANATION (Gemini)
-// ─────────────────────────────────────────────
-async function fetchAIExplanation(){
-  if(!currentResult) return;
-  const loadingEl = document.getElementById('ai-explain-loading');
-  const errEl     = document.getElementById('ai-explain-error');
-  const textEl    = document.getElementById('ai-explain-text');
-  const btn       = document.getElementById('ai-explain-btn');
-
-  loadingEl.style.display = 'flex';
-  errEl.style.display     = 'none';
-  textEl.innerHTML        = '';
-  btn.disabled            = true;
-  btn.textContent         = '⏳ Generating…';
-
-  try{
-    const token = await getToken();
-    const seq   = document.getElementById('seq-input').value.toUpperCase().replace(/\s/g,'');
-    const name  = document.getElementById('protein-name').value || 'Unnamed Protein';
-
-    const res  = await fetch('/api/ai-explain', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({
-        ai_result:      currentResult.ai_result,
-        quantum_result: currentResult.quantum_result,
-        final:          currentResult.final,
-        disease_risk:   currentResult.disease_risk,
-        name, sequence: seq,
-      })
-    });
-    const data = await res.json();
-    loadingEl.style.display = 'none';
-
-    if(!res.ok || !data.success){
-      errEl.style.display = 'block';
-      errEl.textContent   = '⚠️ ' + (data.error || 'AI explanation failed');
-      btn.disabled        = false;
-      btn.textContent     = '✨ Retry';
-      return;
-    }
-
-    // Render **bold** markdown and newlines
-    textEl.innerHTML = data.explanation
-      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-      .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-      .replace(/\n/g,'<br>');
-
-    btn.disabled    = false;
-    btn.textContent = '🔄 Regenerate';
-  } catch(err){
-    document.getElementById('ai-explain-loading').style.display = 'none';
-    errEl.style.display = 'block';
-    errEl.textContent   = '⚠️ Network error: ' + err.message;
-    btn.disabled        = false;
-    btn.textContent     = '✨ Retry';
-  }
-}
-
-// ─────────────────────────────────────────────
-// GEN AI — CHAT (Gemini)
-// ─────────────────────────────────────────────
-let chatHistory = [];
-
-function openAIChat(){
-  document.getElementById('ai-chat-fab').classList.remove('visible');
-  document.getElementById('ai-chat-panel').classList.add('open');
-  document.getElementById('ai-chat-input').focus();
-}
-
-function closeAIChat(){
-  document.getElementById('ai-chat-panel').classList.remove('open');
-  if(currentResult) document.getElementById('ai-chat-fab').classList.add('visible');
-}
-
-function _addBubble(role, html){
-  const msgs = document.getElementById('ai-chat-messages');
-  const div  = document.createElement('div');
-  div.className = 'ai-bubble ' + (role==='user' ? 'ai-bubble-user' : 'ai-bubble-bot');
-  div.innerHTML  = html;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-  return div;
-}
-
-function _showTyping(){
-  const msgs = document.getElementById('ai-chat-messages');
-  const div  = document.createElement('div');
-  div.id        = 'ai-typing';
-  div.className = 'ai-bubble ai-bubble-bot ai-typing';
-  div.innerHTML = '<span></span><span></span><span></span>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function _hideTyping(){ const el=document.getElementById('ai-typing'); if(el) el.remove(); }
-
-function _safeHtml(s){
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-function _mdToHtml(s){
-  return _safeHtml(s)
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\n/g,'<br>');
-}
-
-async function sendAIChat(){
-  if(!currentResult){ toast('⚠️ Run an analysis first'); return; }
-  const input = document.getElementById('ai-chat-input');
-  const q     = input.value.trim();
-  if(!q) return;
-  input.value = '';
-
-  _addBubble('user', _safeHtml(q));
-  chatHistory.push({role:'user', content:q});
-  _showTyping();
-
-  try{
-    const token = await getToken();
-    const seq   = document.getElementById('seq-input').value.toUpperCase().replace(/\s/g,'');
-    const name  = document.getElementById('protein-name').value || 'Unnamed Protein';
-
-    const res  = await fetch('/api/ai-chat', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-      body: JSON.stringify({
-        question: q,
-        history:  chatHistory.slice(-8),
-        context:  {
-          ai_result:      currentResult.ai_result,
-          quantum_result: currentResult.quantum_result,
-          final:          currentResult.final,
-          disease_risk:   currentResult.disease_risk,
-          name, sequence: seq,
-        }
-      })
-    });
-    const data = await res.json();
-    _hideTyping();
-
-    if(!res.ok || !data.success){
-      _addBubble('ai','⚠️ '+_safeHtml(data.error||'Something went wrong'));
-      return;
-    }
-
-    _addBubble('ai', _mdToHtml(data.answer));
-    chatHistory.push({role:'assistant', content:data.answer});
-  } catch(err){
-    _hideTyping();
-    _addBubble('ai','⚠️ Network error: '+_safeHtml(err.message));
-  }
 }
 </script>
 </body>
