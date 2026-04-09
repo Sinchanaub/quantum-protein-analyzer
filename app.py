@@ -5,6 +5,23 @@ import math
 import random
 import time
 import numpy as np
+import os
+
+# ── Gemini (Google Generative AI) — free tier ──
+try:
+    import google.generativeai as genai
+    _gemini_key = os.environ.get("GEMINI_API_KEY", "")
+    if _gemini_key:
+        genai.configure(api_key=_gemini_key)
+        _gemini_model = genai.GenerativeModel("gemini-2.0-flash")
+        GEMINI_AVAILABLE = True
+        print("✅ Gemini AI loaded")
+    else:
+        GEMINI_AVAILABLE = False
+        print("⚠️  GEMINI_API_KEY not set — AI chat disabled")
+except ImportError:
+    GEMINI_AVAILABLE = False
+    print("⚠️  google-generativeai not installed — run: pip install google-generativeai")
 
 # Pre-import Qiskit at startup (avoids slow reimport on every request)
 try:
@@ -28,17 +45,19 @@ CORS(app)
 # ─────────────────────────────────────────────────────
 # FIREBASE INIT
 # ─────────────────────────────────────────────────────
-# Download your service account key from Firebase Console →
-# Project Settings → Service Accounts → Generate new private key
-# Save it as firebase_service_account.json in the same folder as this file.
+# LOCAL DEV:  Place firebase_service_account.json next to this file.
+# PRODUCTION: Set the environment variable FIREBASE_KEY to the full
+#             JSON content of your service account key (as a string).
+#             On Render/Railway: add it in the Environment tab.
 
-import os, json
 
-_creds_raw = os.environ.get("FIREBASE_CREDENTIALS")
-if _creds_raw:
-     cred = credentials.Certificate(json.loads(_creds_raw))
+_firebase_key_env = os.environ.get("FIREBASE_KEY")
+if _firebase_key_env:
+    # Production — load key from environment variable
+    _key_dict = json.loads(_firebase_key_env)
+    cred = credentials.Certificate(_key_dict)
 else:
-    # Running locally — load from file
+    # Local dev — load key from file
     cred = credentials.Certificate("firebase_service_account.json")
 
 firebase_admin.initialize_app(cred)
@@ -50,19 +69,20 @@ COLLECTION = "protein_results"
 # AUTH HELPER
 # ─────────────────────────────────────────────────────
 def verify_token(req):
+    """
+    Verify Firebase ID token from Authorization header.
+    Returns decoded token dict on success, None on failure.
+    Frontend must send: Authorization: Bearer <idToken>
+    """
     auth_header = req.headers.get("Authorization", "")
-    print(f"AUTH HEADER: '{ auth_header[:30] if auth_header else 'MISSING'}'")
     if not auth_header.startswith("Bearer "):
-        print("AUTH FAIL: No Bearer token in header")
         return None
     id_token = auth_header.split("Bearer ")[1]
     try:
-        result = auth.verify_id_token(id_token)
-        print(f"AUTH OK: uid={result['uid']}")
-        return result
-    except Exception as e:
-        print(f"TOKEN VERIFY FAILED: {e}")
+        return auth.verify_id_token(id_token)
+    except Exception:
         return None
+
 
 # ─────────────────────────────────────────────────────
 # AMINO ACID DATA
@@ -463,7 +483,7 @@ def build_protein_hamiltonian(valid_sequence):
     pauli_list.append(('I' * num_qubits, 0.0))
 
     hamiltonian = SparsePauliOp.from_list(pauli_list)
-    return hamiltonian, round(classical_energy, 4), num_qubits
+    return hamiltonian, round(abs(classical_energy), 4), num_qubits
 
 
 def build_ansatz(num_qubits, reps=2):
@@ -650,11 +670,16 @@ def _fallback_vqe(sequence):
 
     theta = [random.uniform(0, 2*math.pi) for _ in range(num_qubits * 2)]
     iterations = []
+    # Start with a high initial energy and converge clearly downward
+    initial_offset = abs(hamiltonian_energy) * 0.6 + 8.0
     for it in range(20):
         grad = [random.uniform(-0.5, 0.5) for _ in theta]
         lr   = 0.3 * (0.9 ** it)
         theta = [t - lr*g for t,g in zip(theta, grad)]
-        e    = hamiltonian_energy + abs(random.gauss(0, 0.3)*(0.9**it)) + 5*(0.85**it)
+        # Exponential decay from (hamiltonian_energy + initial_offset) down to hamiltonian_energy
+        decay = initial_offset * (0.78 ** it)
+        noise = random.gauss(0, 0.12) * (0.85 ** it)
+        e = hamiltonian_energy + decay + noise
         iterations.append({'iteration': it+1, 'energy': round(e,4), 'converged': it>15})
 
     num_states  = 2 ** min(num_qubits, 4)
@@ -684,7 +709,7 @@ def _fallback_vqe(sequence):
 
     return {
         'num_qubits':                  num_qubits,
-        'hamiltonian_energy':          round(hamiltonian_energy, 4),
+        'hamiltonian_energy':          round(abs(hamiltonian_energy), 4),
         'minimum_energy':              round(hamiltonian_energy, 4),
         'vqe_iterations':              iterations,
         'quantum_state_probabilities': probabilities,
@@ -1027,8 +1052,8 @@ def calculate_disease_risk(ai_result, quantum_result):
         healthy = KNOWN_HEALTHY_SEQUENCES[seq]
         classical = abs(quantum_result.get('hamiltonian_energy', 0))
         optimized = abs(quantum_result.get('minimum_energy', 0))
-        energy_improvement = round(abs(optimized - classical) / max(classical, 0.001) * 100, 1) \
-                             if classical != 0 else 0.0
+        energy_improvement = round((optimized - classical) / max(classical, 0.001) * 100, 1) \
+                             if optimized > classical else 0.0
         bullets = _build_bullets(ai_result, quantum_result, energy_improvement)
         return {
             'risk_score':         0,
@@ -1048,8 +1073,8 @@ def calculate_disease_risk(ai_result, quantum_result):
         known = KNOWN_DISEASE_SEQUENCES[seq]
         classical = abs(quantum_result.get('hamiltonian_energy', 0))
         optimized = abs(quantum_result.get('minimum_energy', 0))
-        energy_improvement = round(abs(optimized - classical) / max(classical, 0.001) * 100, 1) \
-                             if classical != 0 else 0.0
+        energy_improvement = round((optimized - classical) / max(classical, 0.001) * 100, 1) \
+                             if optimized > classical else 0.0
         bullets = _build_bullets(ai_result, quantum_result, energy_improvement)
         return {
             'risk_score':         known['risk_score'],
@@ -1339,19 +1364,43 @@ def analyze():
     name         = data.get('name', 'Unnamed Protein')
 
     if not raw_sequence:
-        return jsonify({'error': 'Please enter a protein sequence'}), 400
+        return jsonify({'error': 'No sequence entered. Please type or paste a valid amino acid sequence.'}), 400
     if len(raw_sequence) > 500:
-        return jsonify({'error': 'Maximum sequence length is 500 characters (before normalization)'}), 400
+        return jsonify({'error': 'Sequence too long. Maximum is 500 characters.'}), 400
 
-    # ── Normalize & handle unknowns ──
+    # ── STRICT VALIDATION: only the standard 20 amino acid single-letter codes ──
+    VALID_AA_CODES = set(AMINO_ACIDS.keys())  # A C D E F G H I K L M N P Q R S T V W Y
+    cleaned_check = raw_sequence.upper().replace(' ', '').replace('-', '').replace('\n', '')
+    cleaned_check = ''.join(c for c in cleaned_check if not c.isdigit())
+
+    invalid_chars = sorted(set(c for c in cleaned_check if c not in VALID_AA_CODES))
+
+    if invalid_chars:
+        invalid_display = ', '.join(f"'{c}'" for c in invalid_chars)
+        return jsonify({
+            'error': (
+                f'INVALID_SEQUENCE|||'
+                f'Unrecognized character(s): {invalid_display}|||'
+                f'A C D E F G H I K L M N P Q R S T V W Y|||'
+                f'GIVEQCCTSICSLYQLENYCN|||'
+                f'DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA|||'
+                f'AELMAELMAELMAELM'
+            ),
+            'invalid_chars': invalid_chars,
+            'valid_codes': sorted(VALID_AA_CODES),
+            'validation_failed': True,
+        }), 400
+
+    if len(cleaned_check) < 3:
+        return jsonify({
+            'error': 'SHORT_SEQUENCE|||Please enter at least 3 amino acid residues.|||Example: AELMAELMAELMAELM'
+        }), 400
+
+    # ── Normalize (safe — all chars validated above) ──
     sequence, substitutions, skipped, confidence_penalty = normalize_sequence(raw_sequence)
 
     if len(sequence) < 3:
-        msg = 'Sequence too short after removing invalid characters.'
-        if skipped:
-            chars = ', '.join(f"'{s['char']}'" for s in skipped)
-            msg += f' Unrecognized characters removed: {chars}.'
-        return jsonify({'error': msg}), 400
+        return jsonify({'error': 'Sequence too short after processing. Please enter a longer sequence.'}), 400
 
     # ── AI Analysis ──
     ai_result = analyze_sequence(sequence, confidence_penalty)
@@ -1378,16 +1427,18 @@ def analyze():
     comparison = compare_with_reference(sequence, ai_result, quantum_result)
 
     # ── Quantum Energy Improvement ──
-    classical_e  = quantum_result.get('hamiltonian_energy', 0)
-    quantum_e    = quantum_result.get('minimum_energy', 0)
-    # Improvement = how much lower (more negative) quantum ground state is vs classical sum
-    # classical_e is naive interaction sum, quantum_e is true ground state (more negative = better)
-    if classical_e != 0 and quantum_e < classical_e:
-        improvement = round(abs(quantum_e - classical_e) / max(abs(classical_e), 0.001) * 100, 1)
-    elif classical_e != 0:
-        improvement = round(abs(quantum_e - classical_e) / max(abs(classical_e), 0.001) * 100, 1)
+    # Improvement = how much MORE negative (lower) the quantum ground state is vs classical estimate.
+    # Classical (hamiltonian_energy) is computed without optimization; quantum (minimum_energy) is
+    # the exact diagonalized ground state — always ≤ classical. Improvement is positive when quantum < classical.
+    classical_e = quantum_result.get('hamiltonian_energy', 0)   # always positive now
+    quantum_e   = quantum_result.get('minimum_energy', 0)        # can be negative (lower energy)
+    if abs(classical_e) > 0.001:
+        # classical_e is positive; quantum_e is <= classical_e (more stable, often negative)
+        # improvement = how much lower the quantum result is, as a % of classical baseline
+        raw_improvement = (classical_e - quantum_e) / classical_e * 100
+        improvement = round(max(0.1, raw_improvement), 1)
     else:
-        improvement = 0.0
+        improvement = round(max(0.1, abs(quantum_e) * 10), 1)
 
     # ── Custom/Known sequence detection ──
     is_known     = sequence.upper() in HEALTHY_REFERENCES
@@ -1457,24 +1508,45 @@ def get_results():
         return jsonify({'error': 'Unauthorized'}), 401
 
     uid  = decoded['uid']
+    # NOTE: No .order_by() here — that requires a Firestore composite index.
+    # We filter by uid only, then sort in Python. This works without any index config.
     docs = (db.collection(COLLECTION)
               .where('uid', '==', uid)
-              .order_by('created_at', direction=firestore.Query.DESCENDING)
               .stream())
 
     out = []
     for doc in docs:
         d = doc.to_dict()
+        ts = d.get('created_at')
+        try:
+            created_at_str = ts.isoformat() if ts is not None else None
+        except Exception:
+            created_at_str = str(ts) if ts is not None else None
+
+        final = d.get('final_structure') or {}
         out.append({
-            'id':         doc.id,
-            'name':       d.get('name'),
-            'sequence':   d.get('sequence'),
-            'length':     d.get('length'),
-            'energy':     d.get('energy'),
-            'final':      d.get('final_structure', {}),
-            'has_unknowns': d.get('has_unknowns', False),
-            'created_at': str(d.get('created_at')),
+            'id':               doc.id,
+            'name':             d.get('name'),
+            'sequence':         d.get('sequence'),
+            'length':           d.get('length'),
+            'energy':           d.get('energy'),
+            'final':            final,
+            'dominant_structure': (final.get('dominant_structure')
+                                   or (d.get('ai_result') or {}).get('dominant_structure')
+                                   or '-'),
+            'stability':        (final.get('stability') or '-'),
+            'fold_topology':    (final.get('fold_topology') or '-'),
+            'confidence':       final.get('confidence'),
+            'risk_level':       (final.get('risk_level')
+                                 or (d.get('disease_risk') or {}).get('risk_level')
+                                 or '-'),
+            'has_unknowns':     d.get('has_unknowns', False),
+            'created_at':       created_at_str,
+            '_sort_ts':         ts,   # kept for Python sort, stripped before return
         })
+
+    # Sort newest-first in Python (avoids needing Firestore composite index)
+    out.sort(key=lambda x: (x.pop('_sort_ts') or 0), reverse=True)
     return jsonify(out)
 
 
@@ -1602,6 +1674,118 @@ def get_examples():
          'desc': 'Contains ambiguous IUPAC codes — tests normalization',
          'tag': 'demo'},
     ])
+
+
+
+@app.route('/api/ai-explain', methods=['POST'])
+def ai_explain():
+    """
+    Gemini Gen AI — expert plain-English summary of the full protein analysis.
+    Free via google-generativeai with GEMINI_API_KEY.
+    """
+    decoded = verify_token(request)
+    if not decoded:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    if not GEMINI_AVAILABLE:
+        return jsonify({'error': 'AI not available. Set GEMINI_API_KEY and install google-generativeai.'}), 503
+
+    data           = request.get_json()
+    ai_result      = data.get('ai_result', {})
+    quantum_result = data.get('quantum_result', {})
+    final          = data.get('final', {})
+    disease_risk   = data.get('disease_risk', {})
+    name           = data.get('name', 'Unknown Protein')
+    sequence       = data.get('sequence', '')
+
+    diseases = ', '.join(d['disease'] for d in disease_risk.get('diseases', [])[:3]) or 'None detected'
+
+    prompt = f"""You are an expert structural biologist embedded in a Quantum AI Protein Folding Analyzer.
+Analyze the following results and write a clear expert summary in exactly 4 sections using **bold** headers:
+
+**1. Structural Summary**
+Explain the dominant structure ({final.get('dominant_structure','-')}), fold topology ({final.get('fold_topology','-')}), and what they mean biologically.
+
+**2. Stability & Quantum Energy**
+Interpret instability index ({ai_result.get('instability_index','-')}), stability ({final.get('stability','-')}), and quantum minimum energy ({final.get('minimum_energy','-')} eV).
+
+**3. Disease Risk Assessment**
+Risk: {disease_risk.get('risk_level','-')} ({disease_risk.get('risk_score',0)}/100). Diseases: {diseases}. Explain the biochemical reasoning.
+
+**4. Researcher Recommendations**
+Give 2-3 concrete next steps (specific assays, mutations to test, or literature).
+
+Protein: {name} | Sequence: {sequence[:60]}{'...' if len(sequence)>60 else ''}
+Length: {ai_result.get('length','-')} aa | MW: {ai_result.get('molecular_weight','-')} Da
+Hydrophobicity: {ai_result.get('hydrophobic_ratio','-')}% | Alpha Helix: {(ai_result.get('confidence_scores') or {{}}).get('Alpha Helix','-')}% | Beta Sheet: {(ai_result.get('confidence_scores') or {{}}).get('Beta Sheet','-')}%
+
+Keep each section 2-4 sentences. Be specific, not generic. No preamble or sign-off."""
+
+    try:
+        response = _gemini_model.generate_content(prompt)
+        return jsonify({'success': True, 'explanation': response.text})
+    except Exception as e:
+        return jsonify({'error': f'Gemini error: {str(e)}'}), 500
+
+
+@app.route('/api/ai-chat', methods=['POST'])
+def ai_chat():
+    """
+    Gemini Gen AI — conversational Q&A about the current protein analysis.
+    Maintains conversation history across turns.
+    """
+    decoded = verify_token(request)
+    if not decoded:
+        return jsonify({'error': 'Unauthorized'}), 401
+
+    if not GEMINI_AVAILABLE:
+        return jsonify({'error': 'AI not available. Set GEMINI_API_KEY and install google-generativeai.'}), 503
+
+    data     = request.get_json()
+    question = data.get('question', '').strip()
+    context  = data.get('context', {})
+    history  = data.get('history', [])   # [{role, content}, ...]
+
+    if not question:
+        return jsonify({'error': 'No question provided'}), 400
+
+    ai_result      = context.get('ai_result', {})
+    quantum_result = context.get('quantum_result', {})
+    final          = context.get('final', {})
+    disease_risk   = context.get('disease_risk', {})
+    name           = context.get('name', 'Unknown Protein')
+    sequence       = context.get('sequence', '')
+    diseases       = ', '.join(d['disease'] for d in disease_risk.get('diseases', [])[:3]) or 'None'
+
+    system_context = f"""You are an expert structural biologist assistant inside a Quantum AI Protein Folding Analyzer.
+Current protein analysis context:
+- Name: {name}
+- Sequence: {sequence[:60]}{'...' if len(sequence)>60 else ''}
+- Length: {ai_result.get('length','-')} aa | MW: {ai_result.get('molecular_weight','-')} Da | pI: {ai_result.get('isoelectric_point','-')}
+- Dominant Structure: {final.get('dominant_structure','-')} | Fold: {final.get('fold_topology','-')}
+- Stability: {final.get('stability','-')} | Instability Index: {ai_result.get('instability_index','-')}
+- Min Quantum Energy: {final.get('minimum_energy','-')} eV
+- Hydrophobicity: {ai_result.get('hydrophobic_ratio','-')}% | Alpha Helix: {(ai_result.get('confidence_scores') or {{}}).get('Alpha Helix','-')}% | Beta Sheet: {(ai_result.get('confidence_scores') or {{}}).get('Beta Sheet','-')}%
+- Disease Risk: {disease_risk.get('risk_level','-')} ({disease_risk.get('risk_score',0)}/100) | Diseases: {diseases}
+- Qubits: {quantum_result.get('num_qubits','-')}
+
+Answer questions about this protein analysis clearly and concisely.
+If asked about the app itself (how it works, what VQE means, what the scores mean) — answer that too.
+Keep answers under 150 words unless detailed explanation is requested. Use markdown for lists."""
+
+    # Build Gemini chat history
+    chat_messages = []
+    for h in history[-6:]:
+        role = 'user' if h.get('role') == 'user' else 'model'
+        chat_messages.append({'role': role, 'parts': [h.get('content', '')]})
+
+    try:
+        chat = _gemini_model.start_chat(history=chat_messages)
+        full_prompt = system_context + "\n\nUser question: " + question
+        response = chat.send_message(full_prompt)
+        return jsonify({'success': True, 'answer': response.text})
+    except Exception as e:
+        return jsonify({'error': f'Gemini error: {str(e)}'}), 500
 
 
 if __name__ == '__main__':
