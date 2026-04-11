@@ -1,8 +1,9 @@
 flask
 flask-cors
 firebase-admin
+numpy
+scipy
 qiskit
 qiskit-aer
-scipy
-numpy
+requests
 gunicorn
