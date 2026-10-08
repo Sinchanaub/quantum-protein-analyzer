@@ -10,20 +10,28 @@ import os
 # ── Hugging Face Inference API ──
 import requests as _hf_requests
 
-_HF_API_KEY   = os.environ.get("HF_API_KEY", "")
-# Model: Meta-Llama-3-8B-Instruct is free on HF Inference API (serverless)
-# You can swap to any chat model that supports the Messages API, e.g.:
-#   "mistralai/Mixtral-8x7B-Instruct-v0.1"
-#   "HuggingFaceH4/zephyr-7b-beta"
-_HF_MODEL     = os.environ.get("HF_MODEL", "meta-llama/Llama-3.1-8B-Instruct")
-_HF_API_URL   = "https://router.huggingface.co/v1/chat/completions"
+# Any OpenAI-compatible chat provider works (Groq, Gemini, OpenRouter, Hugging Face...).
+# Configure with env vars:
+#   LLM_API_KEY  (falls back to HF_API_KEY)
+#   LLM_API_URL  (default: Hugging Face router)
+#   LLM_MODEL    (falls back to HF_MODEL)
+# Examples:
+#   Groq:       LLM_API_URL=https://api.groq.com/openai/v1/chat/completions
+#               LLM_MODEL=llama-3.1-8b-instant
+#   OpenRouter: LLM_API_URL=https://openrouter.ai/api/v1/chat/completions
+#               LLM_MODEL=meta-llama/llama-3.1-8b-instruct:free
+#   Gemini:     LLM_API_URL=https://generativelanguage.googleapis.com/v1beta/openai/chat/completions
+#               LLM_MODEL=gemini-2.0-flash
+_HF_API_KEY   = os.environ.get("LLM_API_KEY") or os.environ.get("HF_API_KEY", "")
+_HF_MODEL     = os.environ.get("LLM_MODEL") or os.environ.get("HF_MODEL", "meta-llama/Llama-3.1-8B-Instruct")
+_HF_API_URL   = os.environ.get("LLM_API_URL", "https://router.huggingface.co/v1/chat/completions")
 
 if _HF_API_KEY:
     HF_AVAILABLE = True
-    print(f"✅ Hugging Face AI loaded — model: {_HF_MODEL}")
+    print(f"✅ AI chat loaded — model: {_HF_MODEL} @ {_HF_API_URL}")
 else:
     HF_AVAILABLE = False
-    print("⚠️  HF_API_KEY not set — AI chat disabled. Get a free key at huggingface.co/settings/tokens")
+    print("⚠️  LLM_API_KEY not set — AI chat disabled.")
 
 
 def _hf_chat(system_prompt: str, messages: list, max_tokens: int = 600) -> str:
@@ -50,7 +58,7 @@ def _hf_chat(system_prompt: str, messages: list, max_tokens: int = 600) -> str:
         timeout=60,
     )
     if resp.status_code != 200:
-        raise RuntimeError(f"HF API error {resp.status_code}: {resp.text[:300]}")
+        raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text[:300]}")
     data = resp.json()
     return data["choices"][0]["message"]["content"]
 
