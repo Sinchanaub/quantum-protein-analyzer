@@ -48,6 +48,10 @@ def _hf_chat(system_prompt: str, messages: list, max_tokens: int = 600) -> str:
         "temperature": 0.7,
         "stream": False,
     }
+    # gpt-oss models are reasoning models: keep thinking short so the answer
+    # fits inside max_tokens (Groq supports this parameter for gpt-oss).
+    if "gpt-oss" in _HF_MODEL.lower() and "groq" in _HF_API_URL.lower():
+        payload["reasoning_effort"] = "low"
     resp = _hf_requests.post(
         _HF_API_URL,
         headers={
