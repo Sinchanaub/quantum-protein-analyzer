@@ -1,8 +1,9 @@
-# The AI Dispatch
+Disease-Aware Quantum Protein Folding Analyzer
 
-A community-driven daily AI news site. Approved writers publish articles, readers like them, and admins manage who can post. It's a single-page app built with plain HTML/JavaScript and Firebase, with no build step or backend server.
+A web app that takes an amino acid sequence, analyzes its structural tendencies with classical bioinformatics methods, runs a quantum energy simulation (VQE) on it with Qiskit, and flags misfolding-related disease risk. An LLM then explains the results in plain English.
 
-🔗 **Live site:** [add URL, e.g. your GitHub Pages link](https://quantum-protein-analyzer.onrender.com)
+🔗 Live demo: https://quantum-protein-analyzer.onrender.com
+
 
 ## Screenshots
 
