@@ -1,88 +1,60 @@
-# Disease-Aware Quantum Protein Folding Analyzer
-### Deployment Guide — Render.com
+# The AI Dispatch
 
----
+A community-driven daily AI news site. Approved writers publish articles, readers like them, and admins manage who can post. It's a single-page app built with plain HTML/JavaScript and Firebase, with no build step or backend server.
 
-## Step 1 — Push to GitHub
+🔗 **Live site:** [add URL, e.g. your GitHub Pages link](https://quantum-protein-analyzer.onrender.com)
 
-1. Go to github.com → New Repository
-2. Name it: `quantum-protein-analyzer`
-3. Set to **Public**
-4. Click **Create Repository**
+![Screenshot](screenshot.png)
 
-Then in your project folder, open terminal and run:
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOURUSERNAME/quantum-protein-analyzer.git
-git push -u origin main
-```
+## Features
 
-⚠️ Your `firebase_service_account.json` will NOT be uploaded (protected by .gitignore)
+- **News feed** with a featured story, side stories, a card grid and a scrolling headline ticker, filterable by category (Models & Research, Business & Market, Gov & Policy, Health & Science, Society & Jobs, Tech & Tools)
+- **Article reader:** open the full article in a modal
+- **Likes:** one like per user, and guests are supported too
+- **Authentication:** register and sign in with email and password
+- **Role-based access:**
+  - New accounts start as `pending`
+  - `viewer`: can read and like articles
+  - `poster`: can write articles and edit or delete their own
+  - `admin`: can edit or delete any article
+- **Admin panel:** approve or reject pending users (as viewer or poster), change roles, create or remove users
+- **Article editor:** title, body, tag, optional image URL and author byline
+- **Curated resource directory:** links to trusted AI sources (OpenAI, and others)
+- Real-time updates: posts appear instantly using Firestore listeners
 
----
+## Tech stack
 
-## Step 2 — Deploy on Render
+HTML · CSS · JavaScript (ES modules) · Firebase Authentication · Cloud Firestore
 
-1. Go to **render.com** and sign up (free)
-2. Click **New** → **Web Service**
-3. Connect your GitHub account
-4. Select your `quantum-protein-analyzer` repository
-5. Fill in these settings:
-   - **Name:** quantum-protein-analyzer
-   - **Runtime:** Python 3
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `gunicorn --bind 0.0.0.0:$PORT --timeout 120 --workers 1 app:app`
-6. Click **Advanced** → **Add Environment Variable**
+Firestore collections: `posts` (articles, likes, authors) and `users` (display name, email, role).
 
----
+## Run locally
 
-## Step 3 — Add Firebase Credentials as Environment Variable
-
-This is the most important step — your credentials stay secret.
-
-1. Open your `firebase_service_account.json` file in Notepad
-2. Select ALL the text (Ctrl+A) and copy it (Ctrl+C)
-3. In Render → Environment Variables, add:
-   - **Key:** `FIREBASE_CREDENTIALS`
-   - **Value:** paste the entire JSON content
-4. Click **Save**
-
----
-
-## Step 4 — Deploy
-
-1. Click **Create Web Service**
-2. Wait 5-10 minutes for build to complete
-3. Your URL will be: `https://quantum-protein-analyzer.onrender.com`
-
----
-
-## Step 5 — Keep It Always Awake (Free)
-
-Render free tier sleeps after 15 mins of inactivity.
-Fix this with UptimeRobot:
-
-1. Go to **uptimerobot.com** → sign up free
-2. Click **Add New Monitor**
-3. Set:
-   - Monitor Type: HTTP(s)
-   - Friendly Name: Quantum Protein
-   - URL: your Render URL
-   - Monitoring Interval: 5 minutes
-4. Click **Create Monitor**
-
-Your site will now stay awake 24/7 for free.
-
----
-
-## Local Development (unchanged)
+The whole app is a single `index.html`, so you can open it directly in a browser, or serve it locally:
 
 ```bash
-python app.py
-# Opens at http://localhost:5000
+python -m http.server 8000
 ```
 
-Firebase credentials still load from `firebase_service_account.json` locally.
+Then visit http://localhost:8000.
+
+## Set up your own Firebase backend
+
+If you fork this, point it at your own Firebase project:
+
+1. Create a project at console.firebase.google.com.
+2. Enable **Authentication → Email/Password** and create a **Cloud Firestore** database.
+3. Replace the `firebaseConfig` object in `index.html` with your project's web config.
+4. Register once, then set your user document's `role` to `admin` in Firestore to bootstrap the first admin.
+5. Deploy `index.html` to GitHub Pages, Firebase Hosting or any static host.
+
+## Security notes
+
+Firebase web API keys are meant to be public, but your data is only as safe as your **Firestore security rules**. Role checks in the UI (`admin` / `poster`) are client-side, so mirror them in your Firestore rules before using this with real users.
+
+## Future work
+
+- Firestore security rules enforcing roles server-side
+- Sanitize article content before rendering
+- Comments and full-text search
+- Pull in headlines automatically from AI news RSS feeds
