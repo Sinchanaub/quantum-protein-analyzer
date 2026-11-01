@@ -6,9 +6,10 @@ A community-driven daily AI news site. Approved writers publish articles, reader
 
 ## Screenshots
 
+![Quantum Protein Folding Analyzer](screenshots/main-dashboard.png)
 | Sequence input | AI structure prediction |
 |---|---|
-| ![Protein sequence input](screenshots/protein-sequence-input.png) | ![Quantum Protein Folding Analyzer](screenshots/main-dashboard.png) | ![AI structure prediction](screenshots/ai-structure-prediction.png) |
+| ![Protein sequence input](screenshots/protein-sequence-input.png) | ![AI structure prediction](screenshots/ai-structure-prediction.png) |
 | **3D structure visualisation** | **VQE convergence** |
 | ![3D structure visualisation](screenshots/3d-structure-visualisation.png) | ![VQE convergence](screenshots/vqe-convergence.png) |
 | **Disease risk screening** | **Comparison with healthy reference** |
